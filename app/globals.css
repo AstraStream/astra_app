@@ -20,11 +20,15 @@
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
+  --color-grey: var(--grey);
+  --color-grey-300: var(--grey-300);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-light: var(--destructive-light);
+  --color-destructive-shadow: var(--destructive-shadow);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -41,6 +45,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonte */
+  --font-inter: var(--inter);
 }
 
 :root {
@@ -49,6 +56,8 @@
   --foreground: #A3A3A3;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
+  --grey: #515151;
+  --grey-300: #373737;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: #7E33A9;
@@ -59,8 +68,10 @@
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --destructive: #800501;
+  --destructive-light: #CB1A14;
+  --destructive-shadow: #220504;
+  --border: #262626;
   --input: #171717;
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -76,11 +87,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Fonts */
+  --inter: "Inter", sans-serif;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: "Urbanist", sans-serif;
   }
   body {
     @apply bg-background text-foreground;

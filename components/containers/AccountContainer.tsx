@@ -15,7 +15,7 @@ const AccountContainer = ({
   return (
     <div className="flex items-center justify-center">
       <div className={cn(
-        "w-xl flex flex-col items-center gap-y-10",
+        "w-lg flex flex-col items-center gap-y-8",
         containerClassName
       )}>
         <figure className="select-none">
