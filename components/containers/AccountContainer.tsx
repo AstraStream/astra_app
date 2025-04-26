@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from "@/public/logo.png";
+import logo from "@/public/logo.png";
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
@@ -20,7 +20,7 @@ const AccountContainer = ({
       )}>
         <figure className="select-none">
           <Image 
-            src={Logo.src}
+            src={logo.src}
             alt="Favicon"
             width={122.46}
             height={30}

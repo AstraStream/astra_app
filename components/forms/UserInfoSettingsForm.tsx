@@ -3,9 +3,17 @@
 import React from 'react'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
-import useUserInfoSettingsForm from '@/hooks/useUserInfoSettingsForm';
+import useUserInfoSettingsForm, { genderOptions } from '@/hooks/useUserInfoSettingsForm';
 import { Checker } from '../PasswordChecker';
-import { genderOptions } from '@/lib/constants';
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select"
+import SuccessfulAuthSplashScreen from '../splash-screens/SuccessfulAuthSplashScreen';
 
 
 const UserInfoSettingsForm = () => {
@@ -13,56 +21,97 @@ const UserInfoSettingsForm = () => {
     formik,
     isLoading,
     isValid,
-    handleCheckboxChange,
-    errors
+    handleCountrySelect,
+    handleGenderChange,
+    errors,
+    isSuccessful
   } = useUserInfoSettingsForm();
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="grid gap-y-4"
-    >
-      <Input 
-        type="text"
-        name="name"
-        placeholder="enter name & last name"
-        label="Name"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={errors.name.message as string}
-        aria-invalid={errors.name.isInvalid}
-      />
-
-      {/* Gender Checklist */}
-      <div 
-        role="group"
-        className="w-11/12 flex flex-col gap-y-1.5"
+    <>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="grid gap-y-4"
       >
-        <span className="text-sm font-medium text-muted">Gender</span>
+        <Input 
+          type="text"
+          name="username"
+          placeholder="enter username"
+          label="Username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={errors.username.message as string}
+          aria-invalid={errors.username.isInvalid}
+        />
 
-        {/* Checklist */}
-        <div className="grid grid-cols-3 gap-2">
-          {genderOptions.map(option => (
-            <Checker 
-              key={option}
-              value={option}
-              checked={formik.values.gender === option}
-              order={false}
-              onChange={() => handleCheckboxChange(option)}
-            />
-          ))}
+        {/* Country */}
+        <div 
+          role="group"
+          className="form-group"
+        >
+          <label className="form-label">Country</label>
+
+          <Select
+            value={formik.values.country}
+            onValueChange={handleCountrySelect}
+          >
+            <SelectTrigger 
+              className="w-full" 
+              aria-invalid={errors.country.isInvalid}
+            >
+              <SelectValue placeholder="select country" />
+            </SelectTrigger>
+
+            <SelectContent>
+              <SelectItem value="nigeria">Nigeria 🇳🇬</SelectItem>
+              <SelectItem value="uk">UK 🇬🇧</SelectItem>
+              <SelectItem value="japan">Japan 🇯🇵</SelectItem>
+            </SelectContent>
+          </Select>
+
+          {errors.country.message && (
+            <span className="text-sm font-inter text-destructive-light">{errors.country.message}</span>
+          )}
         </div>
-      </div>
 
-      <Button
-        type="submit"
-        disabled={isValid}
-        isLoading={isLoading}
-      >
-        Continue
-      </Button>
-    </form>
+        {/* Gender Checklist */}
+        <div 
+          role="group"
+          className="w-11/12 form-group"
+        >
+          <span className="form-label">Gender</span>
+
+          {/* Checklist */}
+          <div className="grid grid-cols-3 gap-2">
+            {genderOptions.map(option => (
+              <Checker 
+                key={option}
+                value={option}
+                checked={formik.values.gender === option.toLowerCase()}
+                order={false}
+                onChange={() => handleGenderChange(option)}
+              />
+            ))}
+          </div>
+
+          {errors.gender.message && (
+            <span className="text-sm font-inter text-destructive-light">{errors.gender.message}</span>
+          )}
+        </div>
+
+        <Button
+          type="submit"
+          disabled={isValid}
+          isLoading={isLoading}
+        >
+          Continue
+        </Button>
+      </form>
+
+      {/* Successful Auth Splash screen */}
+      <SuccessfulAuthSplashScreen isVisible={isSuccessful} />
+    </>
   )
 }
 

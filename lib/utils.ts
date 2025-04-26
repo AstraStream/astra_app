@@ -6,7 +6,7 @@ export function getFieldError<T>(
     formik: FormikProps<T>, 
     field: keyof T
 ) {
-    const isTouched = formik.touched[field];
+    const isTouched = formik.touched[field] === undefined ? false : formik.touched[field];
     const error = formik.errors[field];
 
     return ({

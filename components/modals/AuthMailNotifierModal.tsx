@@ -9,7 +9,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/Dialog"
 import notificationImage from "@/public/notification.png";
 import { Button } from '../ui/Button';
 import Icons from '../Icons';

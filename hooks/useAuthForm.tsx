@@ -10,7 +10,7 @@ type FormValues = z.infer<typeof authFormSchema>;
 
 const useAuthForm = () => {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [displayDialog, setDisplayDialog] = useState(true);
+    const [displayDialog, setDisplayDialog] = useState(false);
     
     const formik = useFormik<FormValues>({
         initialValues: {
