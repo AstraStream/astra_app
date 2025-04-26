@@ -5,48 +5,48 @@ import Link from 'next/link'
 import { Checkbox } from '../ui/Checkbox'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
-import Checker from '../Checker'
-
-// error="The email address format isn’t recongized"
+import { PasswordChecker } from '../PasswordChecker'
+import useAuthForm from '@/hooks/useAuthForm';
 
 const CreateAccountForm = () => {
+  const { 
+    formik,
+    isLoading,
+    isValid,
+    errors
+  } = useAuthForm();
+
   return (
     <form
-      className="space-y-4"
+      onSubmit={formik.handleSubmit}
+      className="grid gap-y-4"
     >
       <Input 
         type="email"
+        name="email"
         placeholder="enter email"
         label="Email Address"
-        aria-invalid={false}
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={errors.email.message}
+        aria-invalid={errors.email.isInvalid}
       />
 
       <div className="space-y-2">
         <Input 
           type="password"
+          name="password"
           placeholder="enter password"
           label="Password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={errors.password.message}
+          aria-invalid={errors.password.isInvalid}
         />
 
-        <div className="grid grid-cols-3 gap-x-2">
-          <Checker 
-            title="Special character"
-            value={false}
-            onChange={() => console.log('ss')}
-          />
-
-          <Checker 
-            title="Alphanumeric"
-            value={true}
-            onChange={() => console.log('ss')}
-          />
-
-          <Checker 
-            title="8 Characters long"
-            value={false}
-            onChange={() => console.log('ss')}
-          />
-        </div>
+        <PasswordChecker password={formik.values.password} />
       </div>
 
       {/* Terms and Condition */}
@@ -71,8 +71,8 @@ const CreateAccountForm = () => {
 
       <Button
         type="submit"
-        disabled={true}
-        className=""
+        disabled={isValid}
+        isLoading={isLoading}
       >
         Continue
       </Button>

@@ -13,7 +13,7 @@ const AccountContainer = ({
   wrapperClassName?: string
 }>) => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="pt-10 pb-6 flex items-center justify-center">
       <div className={cn(
         "w-lg flex flex-col items-center gap-y-8",
         containerClassName
@@ -28,7 +28,7 @@ const AccountContainer = ({
         </figure>
 
         {/* Form section */}
-        <div className={cn("flex flex-col", wrapperClassName)}>
+        <div className={cn("w-full flex flex-col", wrapperClassName)}>
           {children}
         </div>
       </div>

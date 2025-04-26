@@ -1,8 +1,9 @@
-import { RiEye2Line, RiEyeOffLine } from "@remixicon/react";
+import { RiEye2Line, RiEyeOffLine, RiLoader2Line } from "@remixicon/react";
 
 const Icons = {
     eyeOpen: RiEye2Line,
-    eyeClosed: RiEyeOffLine
+    eyeClosed: RiEyeOffLine,
+    loader: RiLoader2Line
 }
 
 export default Icons;

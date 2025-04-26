@@ -5,6 +5,7 @@ import AccountContainer from '@/components/containers/AccountContainer'
 import CreateAccountForm from '@/components/forms/CreateAccountForm'
 import AccountHeader from '@/components/headers/AccountHeader'
 import OAuthItems from '@/components/OAuthItems'
+import AuthQuestioniare from '@/components/AuthQuestioniare';
 
 const SignUp = () => {
   return (
@@ -22,15 +23,13 @@ const SignUp = () => {
         <OAuthItems />
 
         {/* Options */} 
-        <p className="text-lg text-center flex justify-center gap-x-1 font-medium">
-          Already have an account?
-          <Link
-            href="/accounts/login"
-            className="text-primary"
-          >
-            Log in
-          </Link>
-        </p>
+        <AuthQuestioniare 
+          title="Already have an account?"
+          link={{
+            title: "Log in",
+            route: "/accounts/login"
+          }}
+        />
       </div>
     </AccountContainer>
   )
