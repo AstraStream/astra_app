@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { genderOptions } from "./constants";
 
 export const passwordValidationChecks = [
     {
@@ -56,3 +57,14 @@ export const updatePasswordSchema = z.object({
       });
     }
 });
+
+// User settings schema
+export const userSettingsSchema = z.object({
+    name: z
+        .string()
+        .min(2, { message: "Name must be at least 2 characters" }),
+    gender: z
+        .enum(genderOptions, {
+            errorMap: () => ({ message: "Please select at least one gender option" })
+        })
+})

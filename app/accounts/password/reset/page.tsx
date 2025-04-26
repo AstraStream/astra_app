@@ -1,7 +1,8 @@
+import React from 'react'
+
 import AuthQuestioniare from '@/components/AuthQuestioniare'
 import AccountContainer from '@/components/containers/AccountContainer'
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm'
-import React from 'react'
 
 const ResetPassword = () => {
   return (

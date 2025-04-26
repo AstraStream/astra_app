@@ -1,19 +1,17 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { z } from 'zod';
 
 import { updatePasswordSchema } from '@/lib/schemas';
 import { getFieldError } from '@/lib/utils';
 
-interface UpdatePasswordValues {
-    newPassword: string,
-    confirmNewPassword: string
-}
+type FormValues = z.infer<typeof updatePasswordSchema>;
 
 const useUpdatePasswordForm = () => {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     
-    const formik = useFormik({
+    const formik = useFormik<FormValues>({
         initialValues: {
             newPassword: "",
             confirmNewPassword: ""
@@ -27,8 +25,8 @@ const useUpdatePasswordForm = () => {
         }
     });
     const errors = {
-        newPassword: getFieldError<UpdatePasswordValues>(formik, "newPassword"),
-        confirmNewPassword: getFieldError<UpdatePasswordValues>(formik, "confirmNewPassword")
+        newPassword: getFieldError<FormValues>(formik, "newPassword"),
+        confirmNewPassword: getFieldError<FormValues>(formik, "confirmNewPassword")
     }
     const isValid = !formik.isValid || !formik.dirty || formik.isSubmitting;
 

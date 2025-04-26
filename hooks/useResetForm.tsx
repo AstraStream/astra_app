@@ -1,18 +1,18 @@
 import React from 'react'
 import { useFormik } from 'formik';
+import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { resetPasswordSchema } from '@/lib/schemas';
 import { getFieldError } from '@/lib/utils';
 
-interface ResetPasswordValue {
-    email: string;
-}
+
+type FormValues = z.infer<typeof resetPasswordSchema>;
 
 const useResetPasswordForm = () => {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     
-    const formik = useFormik({
+    const formik = useFormik<FormValues>({
         initialValues: {
             email: ""
         },
@@ -30,7 +30,7 @@ const useResetPasswordForm = () => {
         isLoading,
         formik,
         isValid,
-        error: getFieldError<ResetPasswordValue>(formik, "email")
+        error: getFieldError<FormValues>(formik, "email")
     }
 }
 
