@@ -2,15 +2,16 @@
 
 import React from 'react'
 import Image from 'next/image';
+import Link from 'next/link';
 import Confetti from 'react-confetti'
 import { AnimatePresence, motion } from "motion/react";
 
 import useWindowDimension from '@/hooks/useWindowDimension';
-import logo from "@/public/logo.png";
-import trophyImage from "@/public/gold-thropy.png";
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '../ui/Button';
+
+import logo from "@/assets/logo.png";
+import trophyImage from "@/assets/gold-thropy.png";
 
 type SuccessfulAuthSplashScreenProps = {
   isVisible: boolean;

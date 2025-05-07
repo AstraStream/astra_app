@@ -27,13 +27,17 @@ export const Checker = ({
         "text-sm font-medium transition-colors duration-200", 
         order ? "order-1" : "order-2",
         value ? "text-inherit" : "text-grey-300"
-        )}>{value}</span>
+        )}
+      >
+        {value}
+      </span>
       <Checkbox 
         id="checker"
         checked={checked}
         onCheckedChange={onChange}
+        style={{ pointerEvents: "none" }}
         className={cn(
-          "rounded-full bg-black border-[1.5] border-border size-[18px]", 
+          "rounded-full bg-black pointer-events-none border-[1.5] border-border size-[18px]", 
           order ? "order-2" : "order-1"
         )}
       />

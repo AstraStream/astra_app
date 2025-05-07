@@ -51,6 +51,18 @@
   --font-inter: var(--inter);
 }
 
+@theme {  
+  /* Breakpoints */
+  --breakpoint-4xs: 16rem; /* 256px */ 
+  --breakpoint-3xs: 18rem; /* 288px */
+  --breakpoint-2xs: 20rem; /* 320px */
+  --breakpoint-xs: 30rem; /* 480px */
+  --breakpoint-mlg: 56.25rem; /* 900px */
+  --breakpoing-xlg: 64rem; /* 1024px */
+  --breakpoint-2xl: 100rem; /* 1600px */
+  --breakpoint-3xl: 120rem; /* 1920px */
+}
+
 :root {
   --radius: 0.625rem;
   --background: #0A0A0A;
@@ -116,13 +128,19 @@
   }
 }
 
-/* Hide scrollbar for Chrome, Safari, and Opera */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+@layer components {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Hide scrollbar for IE, Edge, and Firefox */
-.no-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; 
+    scrollbar-width: none
+  }
+  
+  .app-container {
+    @apply bg-gradient-to-b from-grey-100 to-background;
+  }
 }

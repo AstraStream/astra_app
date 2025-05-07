@@ -5,12 +5,9 @@ import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogDescription,
     DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/Dialog"
-import notificationImage from "@/public/notification.png";
+} from "../ui/Dialog";
+import notificationImage from "@/assets/notification.png";
 import { Button } from '../ui/Button';
 import Icons from '../Icons';
 

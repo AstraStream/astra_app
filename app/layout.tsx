@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Toaster } from "@/components/ui/Sonner";
 import "./globals.css";
+import Providers from "@/providers/Providers";
 
 const urbanist = localFont({
   src: "./fonts/urbanist/Urbanist-VariableFont_wght.ttf"
@@ -27,8 +27,9 @@ export default function RootLayout({
       <body
         className={`${urbanist.className} ${inter.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
