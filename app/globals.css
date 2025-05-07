@@ -126,6 +126,10 @@
   .form-label {
     @apply text-sm font-medium text-muted;
   }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
 }
 
 @layer components {
@@ -142,5 +146,9 @@
   
   .app-container {
     @apply bg-gradient-to-b from-grey-100 to-background;
+  }
+
+  .app-sidebar {
+    @apply flex flex-col gap-y-8 h-full rounded-r-4xl p-6;
   }
 }

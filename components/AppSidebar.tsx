@@ -11,10 +11,23 @@ import { Button } from './ui/Button';
 import Icons from './Icons';
 import { ScrollArea } from './ui/ScrollArea';
 
+import logo from "@/assets/logo.png";
+import Link from 'next/link';
+import Image from 'next/image';
+
 const AppSidebarHeader = () => {
   return (
     <header>
-      Header
+      <Link
+        href="/"
+        className="w-full flex justify-center"
+      >
+        <Image 
+          src={logo}
+          alt="App logo"
+          className="w-[45%] object-cover"
+        />
+      </Link>
     </header>
   )
 }
@@ -39,7 +52,10 @@ const AppSidebar = () => {
           </Button>
         </SheetTrigger>
 
-        <SheetContent className="flex flex-col h-full">
+        <SheetContent 
+          side="left"
+          className="app-container app-sidebar"
+        >
           {/* App Sidebar Header */}
           <div>
             <AppSidebarHeader />
@@ -58,7 +74,7 @@ const AppSidebar = () => {
   }
 
   return (
-    <aside className="app-container w-full rounded-3xl p-5 sticky top-0 h-full flex flex-col">
+    <aside className="app-container app-sidebar">
       {/* App Sidebar Header */}
       <AppSidebarHeader />
 

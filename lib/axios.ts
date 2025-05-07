@@ -1,7 +1,8 @@
 import Axios from "axios";
+import config from "./config";
 
 const axios = Axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL
+    baseURL: config.backendApi
 });
 
 export default axios;
