@@ -149,6 +149,30 @@
   }
 
   .app-sidebar {
-    @apply flex flex-col gap-y-8 h-full rounded-r-4xl p-6;
+    @apply flex flex-col gap-y-8 h-full rounded-4xl px-6 pt-8 pb-6;
   }
+}
+
+.embla {
+  max-width: 48rem;
+  margin: auto;
+  --slide-height: 19rem;
+  --slide-spacing: 1rem;
+  --slide-size: 50%;
+  
+}
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
 }

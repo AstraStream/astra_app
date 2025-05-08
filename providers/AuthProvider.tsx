@@ -1,6 +1,11 @@
 import axios from "@/lib/axios";
 import { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
 import {
+    useQuery,
+    useMutation,
+    useQueryClient
+} from "@tanstack/react-query";
+import {
     createContext,
     ReactNode,
     useContext,
@@ -10,6 +15,9 @@ import {
 
 interface IAuthContent {
     token: null | string;
+    isAuthenticated: boolean;
+    isLoading: boolean
+    error: string | null;
     loginUser: () => void;
     registerUser: () => void;
     logout: () => void;
@@ -27,6 +35,9 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 const AuthContext = createContext<IAuthContent>({
     token: null,
+    isAuthenticated: false,
+    isLoading: false,
+    error: null,
     loginUser: () => {},
     registerUser: () => {},
     logout: () => {},
@@ -34,10 +45,19 @@ const AuthContext = createContext<IAuthContent>({
     updatePassword: () => {}
 });
 
+
+
 const AuthProvider = ({
     children
 }: Readonly<IAuthProvider>) => {
+    const queryClient = useQueryClient();
     const [token, setToken] = useState(null);
+    // const { user } = useQuery(
+    //     ["me"],
+    //     async () => {
+    //         return ""
+    //     }
+    // )
 
     useLayoutEffect(() => {
         const authInterceptor = axios.interceptors.request.use((config: CustomAxiosRequestConfig) => {
@@ -136,6 +156,9 @@ const AuthProvider = ({
     return (
         <AuthContext.Provider value={{
             token,
+            isLoading: false,
+            error: null,
+            isAuthenticated: false,
             registerUser,
             loginUser,
             logout,
@@ -151,7 +174,7 @@ const useAuth = () => {
     const authContext = useContext(AuthContext);
 
     if (!authContext) {
-        throw new Error("You're outside of AuthContext Scope");
+        throw new Error("useAuth must be used within AuthProvider");
     }
 
     return authContext;

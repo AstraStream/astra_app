@@ -20,12 +20,11 @@ const AppSidebarHeader = () => {
     <header>
       <Link
         href="/"
-        className="w-full flex justify-center"
       >
         <Image 
           src={logo}
           alt="App logo"
-          className="w-[45%] object-cover"
+          className="w-[42%] object-cover"
         />
       </Link>
     </header>
@@ -74,7 +73,7 @@ const AppSidebar = () => {
   }
 
   return (
-    <aside className="app-container app-sidebar">
+    <aside className="app-container app-sidebar row-span-full">
       {/* App Sidebar Header */}
       <AppSidebarHeader />
 
