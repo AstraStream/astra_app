@@ -1,43 +1,32 @@
 import React from 'react'
-import { Button } from './ui/Button'
+import { buttonVariants } from './ui/Button'
 import Icons from './Icons'
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/DropdownMenu"
+import NotificationDropdown from './dropdowns/NotificationDropdown';
+import { cn } from '@/lib/utils';
 
 const NotificationButton = () => {
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="relative">
-        <Button
-          size="none"
-          variant="ghost"
+        <span
+          className={cn(buttonVariants({ variant: "ghost", size: "ghost" }))}
+          aria-description="Notifications"
         >
           <Icons.notification className="size-6 text-white/90" />
-        </Button>
+          <span className="sr-only">Notifications</span>
+        </span>
 
         {/* Notification Notifier */}
-        <span className="size-2.5 bg-rose-500/95 border border-white absolute top right-0.5 rounded-full" />
+        <span className="size-2.5 bg-rose-500/95 border border-white absolute top-[33%] -translate-y-1/2 -translate-x-1/2 right-[12%] rounded-full" />
       </DropdownMenuTrigger>
 
-      {/* Content */}
-      <DropdownMenuContent
-        align="end"
-        className="w-80 bg-background border-input"
-      >
-
-      </DropdownMenuContent>
+      {/* Notification Dropdown */}
+      <NotificationDropdown />
     </DropdownMenu>
   )
 }

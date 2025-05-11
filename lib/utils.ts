@@ -18,3 +18,14 @@ export function getFieldError<T>(
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function truncateAddress(address: string) {
+    
+}
+
+export function isActiveLink (
+    currentLink: string, 
+    link: string
+) {
+    return currentLink === link;
+} 

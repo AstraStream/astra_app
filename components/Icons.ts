@@ -1,10 +1,11 @@
 import { 
     RiArrowDownSLine,
-    RiCloseLine, 
-    RiEye2Line, 
+    RiCloseLine,
+    RiDiscFill,
     RiEyeOffLine, 
     RiLoader2Line, 
     RiMenu2Fill,
+    RiMusicAiLine,
     RiSearch2Fill,
 } from "@remixicon/react";
 import { 
@@ -12,12 +13,25 @@ import {
     BellIcon, 
     ChevronRightIcon,
     ChevronLeftIcon,
-    PlayIcon
+    PlayIcon,
+    BellSlashIcon,
+    BanknotesIcon,
+    EyeIcon,
+    Cog6ToothIcon,
+    ArrowLeftStartOnRectangleIcon,
+    UserIcon,
+    MusicalNoteIcon,
+    HeartIcon,
+    PlusCircleIcon,
+    HomeModernIcon
 } from "@heroicons/react/24/solid"
-import { EyeClosedIcon } from "lucide-react";
+import { 
+    CheckCheck, 
+    EyeClosedIcon 
+} from "lucide-react";
 
 const Icons = {
-    eyeOpen: RiEye2Line,
+    eyeOpen: EyeIcon,
     eyeClosed: RiEyeOffLine,
     eyeClosed2: EyeClosedIcon,
     chevronRight: ChevronRightIcon,
@@ -29,7 +43,19 @@ const Icons = {
     search: RiSearch2Fill,
     wallet: WalletIcon,
     notification: BellIcon,
-    play: PlayIcon
+    notificationSlash: BellSlashIcon,
+    play: PlayIcon,
+    doubleCheck: CheckCheck,
+    cash: BanknotesIcon,
+    settings: Cog6ToothIcon,
+    logout: ArrowLeftStartOnRectangleIcon,
+    home: HomeModernIcon,
+    user: UserIcon,
+    disc: RiDiscFill,
+    song: MusicalNoteIcon,
+    playlist: RiMusicAiLine,
+    heart: HeartIcon,
+    plus: PlusCircleIcon
 }
 
 export default Icons;

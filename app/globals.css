@@ -151,6 +151,10 @@
   .app-sidebar {
     @apply flex flex-col gap-y-8 h-full rounded-4xl px-6 pt-8 pb-6;
   }
+
+  .dapp-container {
+    @apply w-11/12 mx-auto py-3.5;
+  }
 }
 
 .embla {
@@ -175,4 +179,8 @@
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
+}
+
+button[data-slot="dropdown-menu-trigger"]:focus-visible {
+  outline: none !important;
 }

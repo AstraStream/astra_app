@@ -77,7 +77,7 @@ import { cn } from '@/lib/utils'
     return (
       <button
         className={cn(
-          "absolute -translate-y-1/2 -translate-x-1/2 top-1/2 right-[12.6%] disabled:opacity-0 hover:cursor-pointer bg-black/70 rounded-full p-2",
+          "absolute -translate-y-1/2 -translate-x-1/2 top-1/2 right-[16.5%] disabled:opacity-0 hover:cursor-pointer bg-black/70 rounded-full p-2",
           className
         )}
         type="button"

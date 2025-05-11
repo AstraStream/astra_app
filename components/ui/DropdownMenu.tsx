@@ -26,7 +26,7 @@ function DropdownMenuTrigger({
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
-      className={cn("outline-none flex items-center", props.className)}
+      className={cn("focus-visible:outline-none rounded-2xl flex items-center", props.className)}
       {...props}
     />
   )

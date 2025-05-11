@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Icons from '../components/Icons';
+import Icons from './Icons';
 import config from '@/lib/config';
 import useNetworkStatus from '@/hooks/useNetworkStatus';
 
@@ -15,7 +15,7 @@ const OfflineSplash = () => {
     )
 }
 
-const NetworkStatusProvider = ({
+const NetworkStatus = ({
     children
 }: Readonly<{
     children: React.ReactNode
@@ -31,4 +31,4 @@ const NetworkStatusProvider = ({
     return <>{children}</>
 }
 
-export default NetworkStatusProvider
+export default NetworkStatus

@@ -4,7 +4,7 @@ import React from 'react'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
 import useUserInfoSettingsForm, { genderOptions } from '@/hooks/useUserInfoSettingsForm';
-import { Checker } from '../PasswordChecker';
+import Checker from '../Checker';
 
 import {
   Select,

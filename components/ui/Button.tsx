@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import Icons from "../Icons"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:!bg-border disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:cursor-pointer active:scale-[.99]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:!bg-border disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive outline-none hover:cursor-pointer active:scale-[.99]",
   {
     variants: {
       variant: {
@@ -16,13 +16,14 @@ const buttonVariants = cva(
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-grey-100/30 dark:border-grey-100 dark:hover:bg-grey-100/50",
-        muted: "bg-grey-100 text-white",
+        muted: "bg-grey-100 text-white hover:bg-grey-300/50",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         grey: "bg-grey-100 text-white",
         ghost:
           "text-foreground/70 hover:bg-grey-300/30 hover:text-white",
         link: "text-primary underline-offset-4 hover:underline",
+        transparent: "bg-transparent text-foreground"
       },
       size: {
         default: "w-full h-14 px-4 py-2 has-[>svg]:px-3 rounded-[30px] text-lg",
@@ -33,6 +34,7 @@ const buttonVariants = cva(
         close: "size-12 rounded-full border-1",
         icon: "size-9",
         excerpt: "w-max px-2.5 py-1 rounded-full font-semibold transiton-colors duration-300",
+        ghost: "p-2",
         none: ""
       },
     },
