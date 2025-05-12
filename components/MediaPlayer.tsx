@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { usePlayer } from '@/providers/PlayerContext';
+import { usePlayer } from '@/providers/PlayerProvider';
 import Icons from './Icons';
+import { formatTime } from '@/lib/utils';
+import PlayButton from './PlayButton';
 
 const MusicPlayerInfo = () => {
   const { currentTrack } = usePlayer();
@@ -33,73 +35,54 @@ const MusicPlayerInfo = () => {
 const MusicPlayerControls = () => {
   const { 
     currentTrack, 
-    isPlaying, 
-    volume,
-    previous,
-    next
+    playlist,
+    seek,
+    duration,
+    currentTime,
+    playNext,
+    playPrevious,
+    play,
+    pause
   } = usePlayer();
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  // Sync audio element
-  useEffect(() => {
-    if (!audioRef.current || !currentTrack) return;
-    audioRef.current.src = currentTrack.url;
-    audioRef.current.volume = volume;
-    audioRef.current.volume = volume;
-    
-    if (isPlaying) audioRef.current.play()
-    else audioRef.current.pause();
-  }, [currentTrack, isPlaying]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const onTime = () => setProgress((audio.currentTime / audio.duration) * 100 || 0);
-    audio.addEventListener("timeupdate", onTime);
-    audio.addEventListener("ended", next);
-
-    return () => {
-      audio.removeEventListener("timeupdate", onTime);
-      audio.removeEventListener("ended", next);
-    }
-  }, [next])
 
 
   return (
     <div className="">
-      <audio ref={audioRef} hidden />
       <div className="flex items-center gap-2">
-        <span onClick={previous}>
+        <span onClick={playPrevious}>
           <Icons.skipBack />
         </span>
 
-        <span onClick={next}>
+        <PlayButton 
+          variant="MusicPlayer"
+          track={currentTrack as ITrack}
+          playlist={playlist}
+        />
+
+        <span onClick={playNext}>
           <Icons.skipForward />
         </span>
       </div>
 
       <div className="flex items-center">
-        <span>{audioRef.current?.currentTime}</span>
+        <span>{formatTime(currentTime)}</span>
         <input 
           type="range"
           min={0}
           max={100}
           step={0.1}
-          value={progress}
-          onChange={(e) => {
-            if (audioRef.current) audioRef.current.currentTime = (parseFloat(e.target.value) / 100) * audioRef.current.duration;
-          }}
+          value={currentTime}
+          onChange={(e) => seek(parseFloat(e.target.value))}
           className="w-full mt-2"
         />
-        <span>{audioRef.current?.duration}</span>
+        <span>{formatTime(duration)}</span>
       </div>
     </div>
   )
 }
 
 const MusicPlayerSettings = () => {
-  const { volume, setVolume } = usePlayer();
+  const { volume, updateVolume } = usePlayer();
 
   return (
     <div>
@@ -111,7 +94,7 @@ const MusicPlayerSettings = () => {
           max={1}
           step={0.01}
           value={volume}
-          onChange={(e) => setVolume(parseFloat(e.target.value))}
+          onChange={(e) => updateVolume(parseFloat(e.target.value))}
         />
       </div>
     </div>
@@ -119,6 +102,12 @@ const MusicPlayerSettings = () => {
 }
 
 const MusicPlayer = () => {
+  const { currentTrack } = usePlayer();
+
+  if (!currentTrack) {
+    return null;
+  }
+
   return (
     <div className="fixed bottom-0.5 left-0 w-full z-50 bg-background h-20 px-4 py-2 flex items-stretch justify-between gap-x-5">
       <MusicPlayerInfo />

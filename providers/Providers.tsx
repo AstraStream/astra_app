@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { AuthProvider } from "./AuthProvider";
 import { Toaster } from "@/components/ui/Sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { PlayerProvider } from "./PlayerContext";
+import { PlayerProvider } from "./PlayerProvider";
 import "react-loading-skeleton/dist/skeleton.css";
 
 interface IProviders {

@@ -40,8 +40,7 @@ const MusicItemCollection = ({
                 <MusicItem
                     key={track.title+track.artist}
                     track={track}
-                    index={index}
-                    trackList={tracks}
+                    playlist={tracks}
                 />
             ))}
         </DragFreeEmblaCarousel>
