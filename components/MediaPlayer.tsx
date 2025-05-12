@@ -41,8 +41,6 @@ const MusicPlayerControls = () => {
     currentTime,
     playNext,
     playPrevious,
-    play,
-    pause
   } = usePlayer();
 
 

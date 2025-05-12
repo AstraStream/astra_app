@@ -17,9 +17,8 @@ const PlayButton = ({
     const { 
         isPlaying,
         currentTrack,
-        pause,
+        togglePlay,
         playTrack,
-        play
     } = usePlayer();
     const isActiveTrack = currentTrack?.id === track.id;
     let variantButtonStyle = "";
@@ -34,7 +33,7 @@ const PlayButton = ({
 
     const handlePlay = () => {
         if (isActiveTrack) {
-            isPlaying ? pause() : play();
+            togglePlay();
         } else {
             playTrack(track, playlist);
         }
@@ -45,7 +44,7 @@ const PlayButton = ({
             className={variantButtonStyle}
             onClick={handlePlay}
         >
-            {isActiveTrack ? (
+            {isPlaying ? (
                 <Icons.pause className={variantIconStyle} />
             ) : (
                 <Icons.play className={variantIconStyle} />

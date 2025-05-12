@@ -8,6 +8,10 @@ import {
     useRef,
     useEffect
 } from "react";
+import {
+    Howl,
+    Howler
+} from "howler";
 
 interface IPlayerContext {
     currentTrack: ITrack | null;
@@ -21,8 +25,7 @@ interface IPlayerContext {
         track: ITrack,
         playlist: ITrack[]
     ) => void;
-    pause: () => void;
-    play: () => void;
+    togglePlay: () => void;
     playNext: () => void;
     playPrevious: () => void;
     seek: (time: number) => void;
@@ -42,124 +45,194 @@ export const PlayerProvider = ({
     const [currentTime, setCurrentTime] = useState(0);
     const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
     const [duration, setDuration] = useState<number>(0);
-    const [volume, setVolume] = useState<number>(0);
+    const [volume, setVolume] = useState<number>(0.02);
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const audioRef = useRef<HTMLAudioElement>(new Audio());
 
-    useEffect(() => {
-        const audio = audioRef.current;
+    const howlRef = useRef<Howl | null>(null);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-        const updateTime = () => {
-            setCurrentTime(audio.currentTime);
-            setDuration(audio.duration);
+     // Cleanup timer
+     const stopTimer = () => {
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
         }
+    };
 
-        const handleEnded = () => playNext();
+    // Update time periodically
+    const startTimer = () => {
+        stopTimer();
+        timerRef.current = setInterval(() => {
+            const seekTime = howlRef.current?.seek();
+            if (typeof seekTime === "number") {
+                setCurrentTime(seekTime);
+            }
+        }, 500);
+    };
 
-        audio.addEventListener("timeupdate", updateTime);
-        audio.addEventListener("ended", handleEnded);
-
-        // Load audio metadata
-        audio.addEventListener("loadedmetadata", () => {
-            setDuration(audio.duration);
-        });
-    
-        return () => {
-          audio.removeEventListener("timeupdate", updateTime);
-          audio.removeEventListener("ended", handleEnded);
-        }
-      }, []);
-
-      useEffect(() => {
-        // Setup Media Session metadata & handlers
-        if ('mediaSession' in navigator && currentTrack) {
-          navigator.mediaSession.metadata = new MediaMetadata({
-            title: currentTrack.title,
-            artist: currentTrack.artist,
-            artwork: [
-                { 
-                    src: currentTrack.image, 
-                    sizes: '512x512', 
-                    type: 'image/png' 
-                }
-            ],
-          });
-
-          navigator.mediaSession.setActionHandler('play', play);
-          navigator.mediaSession.setActionHandler('pause', pause);
-          navigator.mediaSession.setActionHandler('previoustrack', playPrevious);
-          navigator.mediaSession.setActionHandler('nexttrack', playNext);
-        }
-    }, [currentTrack]);
-
-    // Play Track
+    // Play Track using Howler
     const playTrack = (
         track: ITrack,
-        playlist: ITrack[]  = []
+        list: ITrack[]  = playlist
     ) => {
-        audioRef?.current.pause();
-        audioRef.current.src = track.url;
-        audioRef.current.play();
-
-        setCurrentTrack(track);
-
-        // Add single track to Playlist array is it doesn't exist
-        if (playlist.length) {
-            setPlaylist(playlist);
-        } else {
-            setPlaylist([track]);
+        try {
+            if (howlRef.current) {
+                howlRef.current.stop();
+                howlRef.current.unload();
+            }
+    
+            const sound = new Howl({
+                src: [track.url],
+                html5: true,
+                volume,
+                onplay: () => {
+                    setDuration(howlRef.current?.duration() as number);
+                    
+                    // Set isPlaying state
+                    setIsPlaying(true);
+    
+                    // Update audio
+                    startTimer();
+                },
+                onloaderror: (_, err) => {
+                    console.error("Howler load error", err);
+                },
+                onplayerror: (_, err) => {
+                    console.error("Howler play error", err);
+                    sound.once('unlock', () => {
+                        sound.play();
+                    });
+                },
+                onend: () => {
+                    playNext()
+                },
+                onpause: () => {
+                    setIsPlaying(false);
+                    cancelAnimationFrame(timerRef.current as any);
+                },
+                onstop: () => {
+                    setIsPlaying(false);
+                    cancelAnimationFrame(timerRef.current as any);
+                    setCurrentTime(0);
+                }
+            });
+    
+            howlRef.current = sound;
+            
+            // Play audio
+            sound.play();
+    
+            // Set Current
+            setCurrentTrack(track);
+    
+            // Set playlist 
+            setPlaylist(list.length ? list : [track]);
+    
+    
+            // Set MediaSession Metadata
+            setMediaSessionMetadata(track);
+        } catch (err) {
+            console.log("Failed to play track", err); 
         }
-
-        // Set isPlaying state
-        setIsPlaying(true);
-
     }
 
     // Resume Track
     const play = () => {
-        audioRef?.current.play();
-        setIsPlaying(true);
+        if (howlRef.current && !howlRef.current.playing()) {
+            howlRef.current.play();
+            setIsPlaying(true);
+            startTimer();
+        }
     }
 
     // Pause Track
     const pause = () => {
-        audioRef?.current.pause();
-        setIsPlaying(false);
+        if (howlRef.current && howlRef.current.playing()) {
+            howlRef.current.pause();
+            setIsPlaying(false);
+            stopTimer();
+        }
+    }
+
+    // Toggle Play
+    const togglePlay = () => {
+        if (isPlaying) {
+            pause();
+        } else {
+            // Resume AudioContext of suspended (important for Safari/mobile)
+            if (Howler.ctx.state === "suspended") {
+                Howler.ctx.resume().then(() => {
+                    play();
+                });
+            } else {
+                play();
+            }
+        }
     }
 
     // Play Next Track
     const playNext = () => {
-        const currentIndex = playlist.findIndex(t => t.id === currentTrack?.id);
-        const nextTrack = playlist[(currentIndex + 1) % playlist.length];
+        if (!currentTrack) return;
 
-        if (nextTrack) {
-            playTrack(nextTrack, playlist);
-        }
+        const index = playlist.findIndex(t => t.id === currentTrack?.id);
+        const nextTrack = playlist[(index + 1) % playlist.length];
+        playTrack(nextTrack, playlist);
     }
 
     // Play Previous Track
     const playPrevious = () => {
-        const currentIndex = playlist.findIndex(t => t.id === currentTrack?.id);
-        const prevTrack = playlist[(currentIndex - 1 + playlist.length) % playlist.length];
+        if (!currentTrack) return;
 
-        if (prevTrack) {
-            playTrack(prevTrack, playlist);
-        }
+        const index = playlist.findIndex(t => t.id === currentTrack?.id);
+        const prevTrack = playlist[(index - 1 + playlist.length) % playlist.length];
+        playTrack(prevTrack, playlist);
     }
 
     // Set Track Volume
-    const updateVolume = (volume: number) => {
-        audioRef.current.volume = volume;
-        setVolume(volume);        
+    const updateVolume = (vol: number) => {
+        setVolume(vol);
+        howlRef.current?.volume(vol);
     } 
 
-    // Seek Track
+    // Seek Track position in seconds
     const seek = (time: number) => {
-        audioRef.current.currentTime = time;
+        if (howlRef.current) {
+            howlRef.current.seek(time);
+            setCurrentTime(time);
+        }
     }
-      
 
+    // Set MediaSession API for lock screen controls
+    const setMediaSessionMetadata = (track: ITrack) => {
+        if ('mediaSession' in navigator && track) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title: track.title,
+              artist: track.artist,
+              artwork: [
+                  { 
+                      src: track.image, 
+                      sizes: '512x512', 
+                      type: 'image/png' 
+                  }
+              ],
+            });
+  
+            navigator.mediaSession.setActionHandler('play', play);
+            navigator.mediaSession.setActionHandler('pause', pause);
+            navigator.mediaSession.setActionHandler('previoustrack', playPrevious);
+            navigator.mediaSession.setActionHandler('nexttrack', playNext);
+        }
+    }
+
+    // Cleanup Howler on UnMount
+    useEffect(() => {
+        return () => {
+          stopTimer();
+          howlRef.current?.unload();
+        };
+      }, []);
+      
     return (
         <PlayerContext.Provider value={{
             playlist,
@@ -169,9 +242,8 @@ export const PlayerProvider = ({
             isPlaying,
             isMuted,
             duration,
+            togglePlay,
             playTrack,
-            pause,
-            play,
             playNext,
             playPrevious,
             seek,
