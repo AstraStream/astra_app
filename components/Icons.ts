@@ -10,6 +10,7 @@ import {
     RiSearch2Fill,
     RiSkipBackFill,
     RiSkipForwardFill,
+    RiVolumeMuteFill,
     RiVolumeUpFill,
 } from "@remixicon/react";
 import { 
@@ -58,6 +59,7 @@ const Icons = {
     skipBack: RiSkipBackFill,
     skipForward: RiSkipForwardFill,
     volume: RiVolumeUpFill,
+    mutedVolume: RiVolumeMuteFill,
     doubleCheck: CheckCheck,
     cash: BanknotesIcon,
     settings: Cog6ToothIcon,

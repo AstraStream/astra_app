@@ -1,9 +1,6 @@
 import Image from "next/image"
 import banner from "@/assets/banner.png";
 import Link from "next/link";
-import { Button } from "./ui/Button";
-import Icons from "./Icons";
-import { usePlayer } from "@/providers/PlayerProvider";
 import PlayButton from "./PlayButton";
 // import Skeleton from 'react-loading-skeleton';
 {/* <Skeleton width={70} height={25} /> */}
@@ -28,9 +25,10 @@ export const MusicItem = ({
                 />
 
                 <PlayButton 
-                    variant="MusicItem"
+                    variant="default"
                     track={track as ITrack}
                     playlist={playlist}
+                    className="absolute bottom-[5%] right-2 size-12 translate-y-2 opacity-1 duration-500 group-hover:translate-y-0 group-hover:opacity-100 [&>svg]:!size-7 [&>svg]:text-black"
                 />
             </figure>
 

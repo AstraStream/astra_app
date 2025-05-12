@@ -23,7 +23,8 @@ const buttonVariants = cva(
         ghost:
           "text-foreground/70 hover:bg-grey-300/30 hover:text-white",
         link: "text-primary underline-offset-4 hover:underline",
-        transparent: "bg-transparent text-foreground"
+        transparent: "bg-transparent text-foreground",
+        "white-opq-t": "text-foreground hover:text-white"
       },
       size: {
         default: "w-full h-14 px-4 py-2 has-[>svg]:px-3 rounded-[30px] text-lg",

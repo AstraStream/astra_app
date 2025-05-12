@@ -45,7 +45,7 @@ export const PlayerProvider = ({
     const [currentTime, setCurrentTime] = useState(0);
     const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
     const [duration, setDuration] = useState<number>(0);
-    const [volume, setVolume] = useState<number>(0.02);
+    const [volume, setVolume] = useState<number>(0.5);
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -192,6 +192,13 @@ export const PlayerProvider = ({
     // Set Track Volume
     const updateVolume = (vol: number) => {
         setVolume(vol);
+        
+        if (vol === 0) {
+            setIsMuted(true);
+        } else {
+            setIsMuted(false);
+        }
+
         howlRef.current?.volume(vol);
     } 
 

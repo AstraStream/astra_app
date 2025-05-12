@@ -2,17 +2,20 @@ import { usePlayer } from '@/providers/PlayerProvider'
 import React from 'react'
 import { Button } from './ui/Button';
 import Icons from './Icons';
+import { cn } from '@/lib/utils';
 
 type PlayButtonProps = {
-    variant: "MusicItem" | "MusicPlayer";
     track: ITrack;
-    playlist: ITrack[]
+    playlist: ITrack[];
+    className?: string;
+    variant?: "transparent" | "default";
 }
 
 const PlayButton = ({
-    variant,
+    className,
     track,
-    playlist
+    playlist,
+    variant="transparent"
 }: PlayButtonProps) => {
     const { 
         isPlaying,
@@ -21,15 +24,6 @@ const PlayButton = ({
         playTrack,
     } = usePlayer();
     const isActiveTrack = currentTrack?.id === track.id;
-    let variantButtonStyle = "";
-    let variantIconStyle = "";
-
-    if (variant === "MusicItem") {
-        variantButtonStyle = "absolute bottom-[5%] right-2 size-12 rounded-full translate-y-2 opacity-1 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100";
-        variantIconStyle = "size-7 text-black";
-    } else if (variant === "MusicPlayer") {
-        variantButtonStyle = "";
-    }
 
     const handlePlay = () => {
         if (isActiveTrack) {
@@ -41,13 +35,18 @@ const PlayButton = ({
 
     return (
         <Button
-            className={variantButtonStyle}
+            variant={variant}
+            size="none"
+            className={(cn(
+                "rounded-full transition-all",
+                className
+            ))}
             onClick={handlePlay}
         >
-            {isPlaying ? (
-                <Icons.pause className={variantIconStyle} />
+            {(isPlaying && isActiveTrack) ? (
+                <Icons.pause />
             ) : (
-                <Icons.play className={variantIconStyle} />
+                <Icons.play />
             )}
         </Button>
     )

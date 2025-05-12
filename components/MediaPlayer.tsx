@@ -6,12 +6,14 @@ import { usePlayer } from '@/providers/PlayerProvider';
 import Icons from './Icons';
 import { formatTime } from '@/lib/utils';
 import PlayButton from './PlayButton';
+import { Slider } from './ui/Slider';
+import { Button } from './ui/Button';
 
 const MusicPlayerInfo = () => {
   const { currentTrack } = usePlayer();
 
   return (
-    <div className="flex items-center gap-x-3.5">
+    <div className="flex items-center gap-x-3.5 w-[23%]">
       <figure className="h-full w-24 relative">
         <Image 
           src={currentTrack?.image as string}
@@ -23,7 +25,7 @@ const MusicPlayerInfo = () => {
 
       <div className="-space-y-0.5">
         {/* Song Title */}
-        <h5 className="text-[18.5px] text-primary-shade-800 font-semibold">{currentTrack?.title}</h5>
+        <h5 className="truncate text-[18.5px] text-primary-shade-800 font-semibold">{currentTrack?.title}</h5>
         
         {/* Artist */}
         <p className="text-sm opacity-80">{currentTrack?.artist}</p>
@@ -42,36 +44,61 @@ const MusicPlayerControls = () => {
     playNext,
     playPrevious,
   } = usePlayer();
+  const [isDragging, setIsDragging] = useState(false);
+  const [seekValue, setSeekValue] = useState(0);
 
+  useEffect(() => {
+    if (!isDragging && duration > 0) {
+      setSeekValue((currentTime / duration) * 100);
+    }
+  }, [currentTime, duration, isDragging]);
+
+  const handleSeekChange = (value: number[]) => {
+    setSeekValue(value[0]);
+  };
+
+  const handleSeekCommit = (value: number[]) => {
+    const newTime = (value[0] / 100) * duration;
+    seek(newTime);
+    setIsDragging(false);
+  };
 
   return (
-    <div className="">
-      <div className="flex items-center gap-2">
-        <span onClick={playPrevious}>
-          <Icons.skipBack />
-        </span>
+    <div className="flex-1 flex flex-col items-center justify-center gap-2">
+      <div className="flex items-center gap-3">
+        <Button 
+          onClick={playPrevious}
+          variant="white-opq-t"
+          size="none"
+        >
+          <Icons.skipBack className="size-6" />
+        </Button>
 
         <PlayButton 
-          variant="MusicPlayer"
           track={currentTrack as ITrack}
           playlist={playlist}
+          className="bg-white size-9 hover:scale-[1.02] hover:[&>svg]:!scale-100 [&>svg]:!size-5 [&>svg]:text-black"
         />
 
-        <span onClick={playNext}>
-          <Icons.skipForward />
-        </span>
+        <Button 
+          onClick={playNext}
+          variant="white-opq-t"
+          size="none"
+        >
+          <Icons.skipForward className="size-6" />
+        </Button>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <span>{formatTime(currentTime)}</span>
-        <input 
-          type="range"
+        <Slider 
           min={0}
           max={100}
-          step={0.1}
-          value={currentTime}
-          onChange={(e) => seek(parseFloat(e.target.value))}
-          className="w-full mt-2"
+          value={[seekValue]}
+          onValueChange={handleSeekChange}
+          onValueCommit={handleSeekCommit}
+          onPointerDown={() => setIsDragging(true)}
+          className="w-[30rem]"
         />
         <span>{formatTime(duration)}</span>
       </div>
@@ -80,19 +107,23 @@ const MusicPlayerControls = () => {
 }
 
 const MusicPlayerSettings = () => {
-  const { volume, updateVolume } = usePlayer();
+  const { volume, updateVolume, isMuted } = usePlayer();
 
   return (
-    <div>
+    <div className="w-[23%]">
       <div>
-        <Icons.volume />
-        <input 
-          type="range"
+        <span>
+          {isMuted ? (
+            <Icons.mutedVolume />
+          ) : (
+            <Icons.volume />
+          )}
+        </span>
+        <Slider 
           min={0}
-          max={1}
-          step={0.01}
-          value={volume}
-          onChange={(e) => updateVolume(parseFloat(e.target.value))}
+          max={100}
+          value={[volume * 100]}
+          onValueChange={value => updateVolume((value[0] / 100))}
         />
       </div>
     </div>
@@ -107,7 +138,7 @@ const MusicPlayer = () => {
   }
 
   return (
-    <div className="fixed bottom-0.5 left-0 w-full z-50 bg-background h-20 px-4 py-2 flex items-stretch justify-between gap-x-5">
+    <div className="fixed bottom-0 left-0 w-full z-50 bg-background h-24 px-4 py-2 flex items-stretch justify-between gap-x-5">
       <MusicPlayerInfo />
       <MusicPlayerControls />
       <MusicPlayerSettings />
