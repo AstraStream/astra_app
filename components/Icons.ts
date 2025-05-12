@@ -3,10 +3,14 @@ import {
     RiCloseLine,
     RiDiscFill,
     RiEyeOffLine, 
+    RiHeart2Fill, 
     RiLoader2Line, 
     RiMenu2Fill,
     RiMusicAiLine,
     RiSearch2Fill,
+    RiSkipBackFill,
+    RiSkipForwardFill,
+    RiVolumeUpFill,
 } from "@remixicon/react";
 import { 
     WalletIcon,
@@ -21,11 +25,16 @@ import {
     ArrowLeftStartOnRectangleIcon,
     UserIcon,
     MusicalNoteIcon,
-    HeartIcon,
     PlusCircleIcon,
-    HomeModernIcon
+    HomeIcon,
+    ArrowDownTrayIcon,
+    DocumentDuplicateIcon,
+    ChartPieIcon,
+    PauseIcon
 } from "@heroicons/react/24/solid"
 import { 
+    ArrowRightLeftIcon,
+    ArrowUpRight,
     CheckCheck, 
     EyeClosedIcon 
 } from "lucide-react";
@@ -45,17 +54,26 @@ const Icons = {
     notification: BellIcon,
     notificationSlash: BellSlashIcon,
     play: PlayIcon,
+    pause: PauseIcon,
+    skipBack: RiSkipBackFill,
+    skipForward: RiSkipForwardFill,
+    volume: RiVolumeUpFill,
     doubleCheck: CheckCheck,
     cash: BanknotesIcon,
     settings: Cog6ToothIcon,
     logout: ArrowLeftStartOnRectangleIcon,
-    home: HomeModernIcon,
+    home: HomeIcon,
     user: UserIcon,
     disc: RiDiscFill,
     song: MusicalNoteIcon,
     playlist: RiMusicAiLine,
-    heart: HeartIcon,
-    plus: PlusCircleIcon
+    heart: RiHeart2Fill,
+    plus: PlusCircleIcon,
+    copy: DocumentDuplicateIcon,
+    send: ArrowUpRight,
+    receive: ArrowDownTrayIcon,
+    swap: ArrowRightLeftIcon,
+    stake: ChartPieIcon
 }
 
 export default Icons;

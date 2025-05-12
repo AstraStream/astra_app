@@ -1,4 +1,4 @@
-import MusicCardCollection from "@/components/MusicCardCollection";
+import MusicItemCollection from "@/components/MusicItemCollection";
 import RecentAlbumBanner from "@/components/banners/RecentAlbumBanner";
 
 function Home() {
@@ -6,13 +6,13 @@ function Home() {
     <>
       <RecentAlbumBanner />
       
-      <MusicCardCollection title="Recent Albums" />
-      <MusicCardCollection 
+      <MusicItemCollection title="Recent Albums" />
+      <MusicItemCollection 
         title="Picked for you" 
         expandFirst={true}
       />
-      <MusicCardCollection title="Recently Played" />
-      <MusicCardCollection title="Liked Songs" />
+      <MusicItemCollection title="Recently Played" />
+      <MusicItemCollection title="Liked Songs" />
     </>
   );
 }

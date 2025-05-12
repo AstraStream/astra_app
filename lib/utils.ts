@@ -20,7 +20,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function truncateAddress(address: string) {
-    
+    const firstSlice = address.slice(0,7);
+    const lastSlice = address.slice(address.length - 7);
+
+    return `${firstSlice}....${lastSlice}`;
 }
 
 export function isActiveLink (

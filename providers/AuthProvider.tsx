@@ -33,17 +33,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     _retry?: boolean;
   }
 
-const AuthContext = createContext<IAuthContent>({
-    token: null,
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
-    loginUser: () => {},
-    registerUser: () => {},
-    logout: () => {},
-    resetPassword: () => {},
-    updatePassword: () => {}
-});
+const AuthContext = createContext<IAuthContent | undefined>(undefined);
 
 
 

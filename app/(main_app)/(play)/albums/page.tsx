@@ -1,8 +1,9 @@
+import ArtistCollection from '@/components/ArtistCollection'
 import React from 'react'
 
 const Albums = () => {
   return (
-    <div>Albums</div>
+    <ArtistCollection />
   )
 }
 

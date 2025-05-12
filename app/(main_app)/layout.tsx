@@ -7,7 +7,7 @@ export default function MainAppLayout({
 }>) {
   return (
     <ChainProvider>
-        {children}
+      {children}
     </ChainProvider>
   );
 }

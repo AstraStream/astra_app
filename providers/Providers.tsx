@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import { AuthProvider } from "./AuthProvider";
 import { Toaster } from "@/components/ui/Sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PlayerProvider } from "./PlayerContext";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface IProviders {
     children: ReactNode
@@ -17,7 +19,9 @@ const Providers = ({
     return (
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
-                {children}
+                <PlayerProvider>
+                    {children}
+                </PlayerProvider>
             </AuthProvider>
             <Toaster />
         </QueryClientProvider>

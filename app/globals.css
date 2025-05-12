@@ -37,7 +37,25 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-shade-100: var(--primary-shade-100);
+  --color-primary-shade-200: var(--primary-shade-200);
+  --color-primary-shade-300: var(--primary-shade-300);
+  --color-primary-shade-400: var(--primary-shade-400);
+  --color-primary-shade-500: var(--primary-shade-500);
+  --color-primary-shade-600: var(--primary-shade-600);
+  --color-primary-shade-700: var(--primary-shade-700);
+  --color-primary-shade-800: var(--primary-shade-800);
+  --color-primary-shade-900: var(--primary-shade-900);
   --color-primary: var(--primary);
+  --color-primary-tint-100: var(--primary-tint-100);
+  --color-primary-tint-200: var(--primary-tint-200);
+  --color-primary-tint-300: var(--primary-tint-300);
+  --color-primary-tint-400: var(--primary-tint-400);
+  --color-primary-tint-500: var(--primary-tint-500);
+  --color-primary-tint-600: var(--primary-tint-600);
+  --color-primary-tint-700: var(--primary-tint-700);
+  --color-primary-tint-800: var(--primary-tint-800);
+  --color-primary-tint-900: var(--primary-tint-900);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -75,7 +93,25 @@
   --grey-900: #F5F5F5;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
+  --primary-shade-100: #f2ebf6;
+  --primary-shade-200: #e5d6ee;
+  --primary-shade-300: #d8c2e5;
+  --primary-shade-400: #cbaddd;
+  --primary-shade-500: #bf99d4;
+  --primary-shade-600: #b285cb;
+  --primary-shade-700: #a570c3;
+  --primary-shade-800: #985cba;
+  --primary-shade-900: #8b47b2;
   --primary: #7E33A9;
+  --primary-tint-100: #712e98;
+  --primary-tint-200: #652987;
+  --primary-tint-300: #582476;
+  --primary-tint-400: #4c1f65;
+  --primary-tint-500: #3f1a55;
+  --primary-tint-600: #321444;
+  --primary-tint-700: #260f33;
+  --primary-tint-800: #190a22;
+  --primary-tint-900: #0d0511;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: #FFDB99;
   --secondary-foreground: oklch(0.205 0 0);
@@ -133,6 +169,24 @@
 }
 
 @layer components {
+  .react-loading-skeleton {
+    --base-color: #2d2c2caf !important;
+    --highlight-color: #1a1414d1 !important;
+    --animation-duration: 1.5s !important;
+    --animation-direction: normal;
+    --pseudo-element-display: block;
+    background-color: var(--base-color);
+    width: 100%;
+    border-radius: 0.3rem;
+    display: inline-flex;
+    line-height: 1;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    overflow: hidden;
+  } 
+
   /* Hide scrollbar for Chrome, Safari, and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -154,6 +208,18 @@
 
   .dapp-container {
     @apply w-11/12 mx-auto py-3.5;
+  }
+
+  .card-container {
+    @apply w-56 space-y-4 p-3 hover:bg-grey-100/75 backdrop-blur-lg transition-colors duration-300 hover:cursor-pointer rounded-xl;
+  }
+
+  .wallet-board-container {
+    @apply h-80 bg-grey-100/90 rounded-lg;
+  }
+
+  .wallet-board-title {
+    @apply text-[19px] font-semibold text-white;
   }
 }
 

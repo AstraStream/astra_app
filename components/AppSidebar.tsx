@@ -33,8 +33,8 @@ const AppSidebarLink = ({
       <Link
         href={route}
         className={cn(
-          "flex items-center gap-x-2 text-white font-medium hover:text-primary/80 transition-colors duration-200",
-          isActiveLink(pathname, route) ? "text-primary font-bold" : ""
+          "flex items-center gap-x-2 text-white font-medium hover:text-primary-shade-600 transition-colors duration-200",
+          isActiveLink(pathname, route) ? "text-primary-shade-900 font-bold" : ""
         )}
       >
         <Icon className="size-6" />
@@ -53,7 +53,7 @@ const AppSidebarContent = () => {
             key={name}
             className="space-y-5"
           >
-            <h5 className="font-semibold px-6 opacity/75 capitalize">{name}</h5>
+            <h5 className="font-semibold px-6 opacity-70 capitalize">{name}</h5>
 
             <ul className="space-y-6">
               {slinks.map(link => (
@@ -69,7 +69,7 @@ const AppSidebarContent = () => {
         {/* Playlist */}
         <div className="space-y-5">
           <header className="flex items-center justify-between px-6">
-            <h5 className="font-semibold opacity/75 capitalize">Playlists</h5>
+            <h5 className="font-semibold opacity-70 capitalize">Playlists</h5>
             <Link
               href="/playlists"
               className={cn(buttonVariants({ variant: "ghost", size: "excerpt" }))}
@@ -78,13 +78,13 @@ const AppSidebarContent = () => {
             </Link>
           </header>
           
-          <div>
+          <ul>
             <AppSidebarLink 
               title="New playlist"
               Icon={Icons.plus}
               route="/playlist/new"
             />
-          </div>
+          </ul>
         </div>
       </div>
 

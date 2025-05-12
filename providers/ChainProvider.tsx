@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import solanaImage from "@/assets/chains/solana.png";
 import xionImage from "@/assets/chains/xion.png";
@@ -16,36 +16,48 @@ interface IChainProvider {
     children: ReactNode
 }
 
-const ChainContext = createContext<IChainContext>({
-    chains: [],
-    activeChain: {
-        name: "Solana",
-        imageSource: ""
-    },
-    handleActiveChainOption: () => {}
-});
+const ChainContext = createContext<IChainContext | undefined>(undefined);
 
 const allChains: IChain[] = [
     {
         imageSource: solanaImage,
-        name: "Solana"
+        name: "Solana",
+        symbol: "SOL"
     },
     {
         imageSource: xionImage,
-        name: "XION"
+        name: "XION",
+        symbol: "XION"
     }
 ];
 
 const ChainProvider = ({
     children
 }: IChainProvider) => {
-    const currentActiveChainStorage = JSON.parse(localStorage.getItem("astra_achain") as string) ?? allChains[0];
-    const [activeChain, setActiveChain] = useState<IChainContext["activeChain"]>(currentActiveChainStorage);
+    const [activeChain, setActiveChain] = useState<IChainContext["activeChain"]>(allChains[0]);
+    const [isClient, setIsClient] = useState(false);
     
+    useEffect(() => {
+        setIsClient(true);
+
+        try {
+            const storedChain = localStorage.getItem("astra_achain");
+
+            if (storedChain) {
+                setActiveChain(JSON.parse(storedChain));
+            }
+        } catch (err) {
+            console.warn("Failed to parse active chain from localStorage");
+        }
+    }, [])
+
     // Select active chain
     const handleActiveChainOption = (chain: IChain) => {
         setActiveChain(chain);
-        localStorage.setItem("astra-achain", JSON.stringify(chain));
+
+        if (isClient) {
+            localStorage.setItem("astra_achain", JSON.stringify(chain));
+        }
     }
 
     return (
@@ -63,7 +75,7 @@ const useChain = () => {
     const chainContext = useContext(ChainContext);
 
     if (!chainContext) {
-        throw new Error("useChain must be used within AuthProvider");
+        throw new Error("useChain must be used within ChainProvider");
     }
 
     return chainContext;
