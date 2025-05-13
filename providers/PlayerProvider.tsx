@@ -46,6 +46,7 @@ export const PlayerProvider = ({
     const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
     const [duration, setDuration] = useState<number>(0);
     const [volume, setVolume] = useState<number>(0.5);
+    const [lastKnownVolume, setLastKnownVolume] = useState<number>(volume);
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
 

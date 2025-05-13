@@ -8,12 +8,13 @@ import { formatTime } from '@/lib/utils';
 import PlayButton from './PlayButton';
 import { Slider } from './ui/Slider';
 import { Button } from './ui/Button';
+import MuteMediaButton from './MuteMediaButton';
 
 const MusicPlayerInfo = () => {
   const { currentTrack } = usePlayer();
 
   return (
-    <div className="flex items-center gap-x-3.5 w-[23%]">
+    <div className="flex items-center gap-x-3.5 w-[24%]">
       <figure className="h-full w-24 relative">
         <Image 
           src={currentTrack?.image as string}
@@ -64,7 +65,7 @@ const MusicPlayerControls = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-2">
+    <div className="flex-1 flex flex-col items-center justify-center gap-1.5">
       <div className="flex items-center gap-3">
         <Button 
           onClick={playPrevious}
@@ -90,7 +91,7 @@ const MusicPlayerControls = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        <span>{formatTime(currentTime)}</span>
+        <span className="text-sm">{formatTime(currentTime)}</span>
         <Slider 
           min={0}
           max={100}
@@ -100,30 +101,35 @@ const MusicPlayerControls = () => {
           onPointerDown={() => setIsDragging(true)}
           className="w-[30rem]"
         />
-        <span>{formatTime(duration)}</span>
+        <span className="text-sm">{formatTime(duration)}</span>
       </div>
     </div>
   )
 }
 
 const MusicPlayerSettings = () => {
-  const { volume, updateVolume, isMuted } = usePlayer();
+  const { 
+    volume, 
+    updateVolume
+  } = usePlayer();
 
   return (
-    <div className="w-[23%]">
-      <div>
-        <span>
-          {isMuted ? (
-            <Icons.mutedVolume />
-          ) : (
-            <Icons.volume />
-          )}
-        </span>
+    <div className="w-[24%] flex items-center justify-end gap-x-2.5">
+      <span>
+        <Icons.heartOutline className="size-5" />
+      </span>
+
+      <div className="flex items-center gap-x-1.5">
+        {/* Mute Media Button */}
+        <MuteMediaButton />
+
+        {/* Volume slider */}
         <Slider 
           min={0}
           max={100}
           value={[volume * 100]}
           onValueChange={value => updateVolume((value[0] / 100))}
+          className="w-32"
         />
       </div>
     </div>
@@ -138,7 +144,7 @@ const MusicPlayer = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 w-full z-50 bg-background h-24 px-4 py-2 flex items-stretch justify-between gap-x-5">
+    <div className="fixed bottom-0 left-0 w-full z-50 bg-background h-[5.5rem] px-4 py-2 flex items-stretch justify-between gap-x-5">
       <MusicPlayerInfo />
       <MusicPlayerControls />
       <MusicPlayerSettings />

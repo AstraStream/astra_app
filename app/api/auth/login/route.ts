@@ -3,7 +3,6 @@ import type {
     NextApiRequest,
     NextApiResponse
 } from "next";
-import { serialize } from "v8";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {

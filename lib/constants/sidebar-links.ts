@@ -11,7 +11,7 @@ export const links = {
     library: [
         {
             Icon: Icons.user,
-            title: "Artist",
+            title: "Artists",
             route: "/artists"
         },
         {
