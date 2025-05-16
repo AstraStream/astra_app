@@ -13,8 +13,8 @@ import WalletStakeModal from './modals/WalletStakeModal';
 import ChainSelector from './ChainSelector';
 
 const WalletBoard = () => {
-    const { activeChain, chains } = useChain();
-    const { chainWalletBalance, chainWalletaddress } = useWallet(activeChain?.name);
+    const { activeChain } = useChain();
+    const { chainWalletBalance } = useWallet(activeChain?.name);
     const [isBalanceVisible, setIsBalanceVisible] = useState(false);
     const [isClient, setIsClient] = useState(false);
 

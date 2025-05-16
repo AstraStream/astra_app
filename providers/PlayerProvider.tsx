@@ -258,6 +258,7 @@ export const PlayerProvider = ({
     // Accumulate points when play time reaches 120, award and reset counter
     useEffect(() => {
         if (secondsPlayed > 0 && secondsPlayed % INTERVAL_SECONDS === 0) {
+            localStorage.setItem("astra-pt", JSON.stringify(point + POINTS_PER_INTERVAL));
             setPoint(s => s + POINTS_PER_INTERVAL);
         }
     }, [secondsPlayed])
