@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Input } from '../ui/Input'
 import { Button, buttonVariants } from '../ui/Button'
-import useAuthForm from '@/hooks/useAuthForm';
+import useLoginForm from '@/hooks/useLoginForm';
 import { cn } from '@/lib/utils';
 
 const LoginAccountForm = () => {
@@ -13,7 +13,7 @@ const LoginAccountForm = () => {
     isLoading,
     isValid,
     errors
-  } = useAuthForm();
+  } = useLoginForm();
 
   return (
     <form

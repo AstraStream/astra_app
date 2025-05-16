@@ -105,8 +105,8 @@ const AuthProvider = ({
      * @param email
      * @param password
      */
-    const registerUser = async () => {
-        // Register user
+    const registerUser = () => {
+        
     }   
 
     /**

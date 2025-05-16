@@ -60,7 +60,7 @@ function Input({ className, type, label, error, ...props }: InputProps) {
 
       {/* Error */}
       {error && (
-        <span className="text-sm font-inter text-destructive-light">{error}</span>
+        <span className="form-error">{error}</span>
       )}
     </div>
   )

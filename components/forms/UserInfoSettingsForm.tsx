@@ -3,7 +3,7 @@
 import React from 'react'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
-import useUserInfoSettingsForm, { genderOptions, roles } from '@/hooks/useUserInfoSettingsForm';
+import useUserInfoSettingsForm, { genderOptions } from '@/hooks/useUserInfoSettingsForm';
 import Checker from '../Checker';
 
 import {
@@ -23,7 +23,7 @@ const UserInfoSettingsForm = () => {
     isValid,
     handleCountrySelect,
     handleGenderChange,
-    handleRoleSelect,
+    // handleRoleSelect,
     errors,
     isSuccessful
   } = useUserInfoSettingsForm();
@@ -77,7 +77,7 @@ const UserInfoSettingsForm = () => {
         </div>
 
         {/* Role */}
-        <div 
+        {/* <div 
           role="group"
           className="form-group"
         >
@@ -110,7 +110,7 @@ const UserInfoSettingsForm = () => {
           {errors.role.message && (
             <span className="text-sm font-inter text-destructive-light">{errors.role.message}</span>
           )}
-        </div>
+        </div> */}
 
         {/* Gender Checklist */}
         <div 

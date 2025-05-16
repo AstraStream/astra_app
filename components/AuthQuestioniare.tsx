@@ -13,7 +13,6 @@ const AuthQuestioniare = ({
     title,
     link
 }: AuthQuestioniareProps) => {
-    console.log(link, title)
   return (
     <p className="text-lg text-center flex justify-center gap-x-1 font-medium">
         {title}

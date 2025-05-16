@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { FormikProps } from "formik";
 import { twMerge } from "tailwind-merge"
+import { z } from "zod";
 
 export function getFieldError<T>(
     formik: FormikProps<T>, 
@@ -41,4 +42,9 @@ export const formatTime = (seconds: number) => {
                     .toString()
                     .padStart(2, "0");
     return `${m}:${s}`;
+}
+
+export const verifyEmail = (email: string) => {
+    const emailValidator = z.string().email({ message: "Invalid email format" });
+    return emailValidator.safeParse(email);
 }

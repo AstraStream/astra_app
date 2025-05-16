@@ -9,6 +9,7 @@ import {
 } from "../ui/Dialog";
 import { Button } from '../ui/Button';
 import Icons from '../Icons';
+import SwapForm from '../forms/SwapForm';
 
 const WalletSwapModal = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +44,7 @@ const WalletSwapModal = () => {
                 </DialogClose>
 
                 <DialogTitle>
-                    Swap
+                    <SwapForm />
                 </DialogTitle>
             </DialogContent>
         </Dialog>

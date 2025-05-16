@@ -65,10 +65,17 @@ export const userSettingsSchema = z.object({
     country: z
         .string()
         .nonempty({ message: "Please select your country" }),
-    role: z
-        .string()
-        .nonempty({ message: "Please select your role" }),
+    // role: z
+    //     .string()
+    //     .nonempty({ message: "Please select your role" }),
     gender: z
         .string()
         .nonempty({ message: "Please select at least one gender option" })
 })
+
+// Verify OTP
+export const verifyOTPSchema = z.object({
+    code: z
+        .string()
+        .min(6, { message: "Fill in your OTP Code" })
+});

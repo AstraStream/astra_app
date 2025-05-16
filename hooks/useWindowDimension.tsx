@@ -1,7 +1,9 @@
+"use client";
+
 import React from 'react'
 
 const useWindowDimension = () => {
-    const [dimensions, setDimensions] = React.useState({ width: window.innerWidth, height: window.innerHeight });
+    const [dimensions, setDimensions] = React.useState({ width: window?.innerWidth || 0, height: window?.innerHeight || 0 });
 
     React.useEffect(() => {
         function handleResize() {

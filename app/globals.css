@@ -207,7 +207,7 @@
   }
 
   .dapp-container {
-    @apply w-11/12 mx-auto py-3.5;
+    @apply w-[95%] py-2 lg:w-11/12 mx-auto lg:py-3.5;
   }
 
   .card-container {
@@ -220,6 +220,10 @@
 
   .wallet-board-title {
     @apply text-[19px] font-semibold text-white;
+  }
+
+  .form-error {
+    @apply text-sm font-inter text-destructive-light;
   }
 }
 

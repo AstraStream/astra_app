@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { authFormSchema } from '@/lib/schemas';
 import { getFieldError } from '@/lib/utils';
 import { z } from 'zod';
+import { useRegister } from '@/lib/api/auth';
 
-type FormValues = z.infer<typeof authFormSchema>;
+export type AuthValues = z.infer<typeof authFormSchema>;
 
-const useAuthForm = () => {
-    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+const useRegisterForm = () => {
     const [displayDialog, setDisplayDialog] = useState(false);
-    
-    const formik = useFormik<FormValues>({
+    const { mutate: register, isPending, error } = useRegister();
+
+    const formik = useFormik<AuthValues>({
         initialValues: {
             email: "",
             password: ""
@@ -21,27 +22,18 @@ const useAuthForm = () => {
         validateOnChange: true,
         validateOnBlur: true,
         onSubmit: (values) => {
-            try {
-                setIsLoading(true)
-                console.log(values, "submitted");
-            } catch (err) {
-                // 
-            } finally {
-                setTimeout(() => {
-                    setIsLoading(false);
-                    setDisplayDialog(true);
-                }, 500);
-            }
+            // Register new user
+            register(values);
         }
     });
     const errors = {
-        email: getFieldError<FormValues>(formik, "email"),
-        password: getFieldError<FormValues>(formik, "password"),
+        email: getFieldError<AuthValues>(formik, "email") || error?.message,
+        password: getFieldError<AuthValues>(formik, "password"),
     }
     const isValid = !formik.isValid || !formik.dirty || formik.isSubmitting;
 
     return {
-        isLoading,
+        isLoading: formik.isSubmitting || isPending,
         displayDialog,
         setDisplayDialog,
         formik,
@@ -50,4 +42,4 @@ const useAuthForm = () => {
     }
 }
 
-export default useAuthForm
+export default useRegisterForm

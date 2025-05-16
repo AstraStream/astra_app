@@ -6,7 +6,7 @@ import { Checkbox } from '../ui/Checkbox'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
 import { PasswordChecker } from '../PasswordChecker'
-import useAuthForm from '@/hooks/useAuthForm';
+import useRegisterForm from '@/hooks/useRegisterForm';
 import AuthMailNotifierModal from '../modals/AuthMailNotifierModal';
 
 const CreateAccountForm = () => {
@@ -17,11 +17,7 @@ const CreateAccountForm = () => {
     isLoading,
     isValid,
     errors
-  } = useAuthForm();
-
-  useEffect(() => {
-
-  }, [isLoading]);
+  } = useRegisterForm();
 
   return (
     <>

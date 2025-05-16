@@ -22,7 +22,7 @@ const buttonVariants = cva(
         grey: "bg-grey-100 text-white",
         ghost:
           "text-foreground/70 hover:bg-grey-300/30 hover:text-white",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-primary bg-transparent underline-offset-4 hover:underline",
         transparent: "bg-transparent text-foreground",
         "white-opq-t": "text-foreground hover:text-white"
       },
