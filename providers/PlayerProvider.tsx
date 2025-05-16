@@ -21,6 +21,7 @@ interface IPlayerContext {
     currentTime: number;
     duration: number;
     isMuted: boolean;
+    point:number;
     playTrack: (
         track: ITrack,
         playlist: ITrack[]
@@ -36,6 +37,9 @@ interface IPlayerProvider {
     children: ReactNode
 }
 
+const POINTS_PER_INTERVAL = 10;
+const INTERVAL_SECONDS = 5;
+
 const PlayerContext = createContext<IPlayerContext | undefined>(undefined);
 
 export const PlayerProvider = ({
@@ -46,12 +50,14 @@ export const PlayerProvider = ({
     const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
     const [duration, setDuration] = useState<number>(0);
     const [volume, setVolume] = useState<number>(0.5);
-    const [lastKnownVolume, setLastKnownVolume] = useState<number>(volume);
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [secondsPlayed, setSecondsPlayed] = useState(0);
+    const [point, setPoint] = useState(0);
 
     const howlRef = useRef<Howl | null>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const pointsTimerRef = useRef<NodeJS.Timeout | null>(null);
 
      // Cleanup timer
      const stopTimer = () => {
@@ -96,17 +102,13 @@ export const PlayerProvider = ({
                     // Update audio
                     startTimer();
                 },
-                onloaderror: (_, err) => {
-                    console.error("Howler load error", err);
-                },
                 onplayerror: (_, err) => {
-                    console.error("Howler play error", err);
                     sound.once('unlock', () => {
                         sound.play();
                     });
                 },
                 onend: () => {
-                    playNext()
+                    setTimeout(() => playNext(), 100); // 100ms delay
                 },
                 onpause: () => {
                     setIsPlaying(false);
@@ -128,8 +130,9 @@ export const PlayerProvider = ({
             setCurrentTrack(track);
     
             // Set playlist 
-            setPlaylist(list.length ? list : [track]);
-    
+            if (list && list.length) {
+                setPlaylist(list);
+            }
     
             // Set MediaSession Metadata
             setMediaSessionMetadata(track);
@@ -174,7 +177,8 @@ export const PlayerProvider = ({
 
     // Play Next Track
     const playNext = () => {
-        if (!currentTrack) return;
+        console.log(currentTrack, playlist);
+        if (!currentTrack || !playlist.length) return;
 
         const index = playlist.findIndex(t => t.id === currentTrack?.id);
         const nextTrack = playlist[(index + 1) % playlist.length];
@@ -233,12 +237,37 @@ export const PlayerProvider = ({
         }
     }
 
+    // Start/Stop seconds timer with playing toggles
+    useEffect(() => {
+        if (isPlaying) {
+            pointsTimerRef.current = setInterval(() => {
+                setSecondsPlayed(s => s + 1);
+            }, 1000);
+        } else {
+            if (pointsTimerRef.current) {
+                clearInterval(pointsTimerRef.current);
+                pointsTimerRef.current = null;
+            }
+        }
+
+        return () => {
+            if (pointsTimerRef.current) clearInterval(pointsTimerRef.current);
+        }
+    }, [isPlaying]);
+
+    // Accumulate points when play time reaches 120, award and reset counter
+    useEffect(() => {
+        if (secondsPlayed > 0 && secondsPlayed % INTERVAL_SECONDS === 0) {
+            setPoint(s => s + POINTS_PER_INTERVAL);
+        }
+    }, [secondsPlayed])
+
     // Cleanup Howler on UnMount
     useEffect(() => {
         return () => {
           stopTimer();
           howlRef.current?.unload();
-        };
+        }
       }, []);
       
     return (
@@ -250,6 +279,7 @@ export const PlayerProvider = ({
             isPlaying,
             isMuted,
             duration,
+            point,
             togglePlay,
             playTrack,
             playNext,

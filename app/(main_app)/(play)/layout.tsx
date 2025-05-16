@@ -15,10 +15,10 @@ export default function PlayLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="h-screen grid grid-cols-1 grid-rows-[max-content_1fr] mlg:grid-cols-[30%_1fr] mlg:gap-3 p-3 lg:grid-cols-[23%_1fr] lg:p-4 lg:gap-x-4 relative">
+    <main className="h-screen grid grid-rows-[max-content_1fr] grid-cols-1 mlg:gap-y-3 p-3 lg:grid-cols-[23%_1fr] lg:p-4 lg:gap-x-4 relative">
       <AppNavigation />
       <AppSidebar />
-      <main className="overflow-y-scroll rounded-3xl p-6 no-scrollbar app-container">
+      <main className="!w-full lg:w-max overflow-y-scroll rounded-3xl no-scrollbar app-container px-6 pt-6 pb-20">
         {/* <NetworkStatus> */}
           {children}
         {/* </NetworkStatus> */}

@@ -12,22 +12,26 @@ export const links = {
         {
             Icon: Icons.user,
             title: "Artists",
-            route: "/artists"
+            route: "/artists",
+            isActive: true
         },
         {
             Icon: Icons.disc,
             title: "Albums",
-            route: "/albums"
+            route: "/albums",
+            isActive: true
         },
         {
             Icon: Icons.song,
             title: "Genres",
-            route: "/genres"
+            route: "/genres",
+            isActive: true
         },
         {
             Icon: Icons.heart,
             title: "Liked Songs",
-            route: "/liked"
+            route: "/liked",
+            isActive: true
         }
     ]
 }

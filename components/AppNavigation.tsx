@@ -24,7 +24,7 @@ const AppNavigation = ({
   if (variant === "dapp") {
     variantClassName = "py-2 h-16"
   } else if (variant === "play") {
-    variantClassName = "col-start-2 col-end-3 pr-1.5 h-12";
+    variantClassName = "col-span-full lg:col-start-2 lg:col-end-3 pr-1.5 h-12";
   }
 
   return (

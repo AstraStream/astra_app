@@ -65,6 +65,9 @@ export const userSettingsSchema = z.object({
     country: z
         .string()
         .nonempty({ message: "Please select your country" }),
+    role: z
+        .string()
+        .nonempty({ message: "Please select your role" }),
     gender: z
         .string()
         .nonempty({ message: "Please select at least one gender option" })

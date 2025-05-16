@@ -3,7 +3,7 @@
 import React from 'react'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
-import useUserInfoSettingsForm, { genderOptions } from '@/hooks/useUserInfoSettingsForm';
+import useUserInfoSettingsForm, { genderOptions, roles } from '@/hooks/useUserInfoSettingsForm';
 import Checker from '../Checker';
 
 import {
@@ -23,6 +23,7 @@ const UserInfoSettingsForm = () => {
     isValid,
     handleCountrySelect,
     handleGenderChange,
+    handleRoleSelect,
     errors,
     isSuccessful
   } = useUserInfoSettingsForm();
@@ -72,6 +73,42 @@ const UserInfoSettingsForm = () => {
 
           {errors.country.message && (
             <span className="text-sm font-inter text-destructive-light">{errors.country.message}</span>
+          )}
+        </div>
+
+        {/* Role */}
+        <div 
+          role="group"
+          className="form-group"
+        >
+          <label className="form-label">Role</label>
+
+          <Select
+            value={formik.values.role}
+            onValueChange={handleRoleSelect}
+          >
+            <SelectTrigger 
+              className="w-full capitalize" 
+              aria-invalid={errors.role.isInvalid}
+            >
+              <SelectValue placeholder="select role" />
+            </SelectTrigger>
+
+            <SelectContent>
+              {roles.map(role => (
+                <SelectItem 
+                  key={role}
+                  value={role}
+                  className="capitalize"
+                >
+                  {role}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {errors.role.message && (
+            <span className="text-sm font-inter text-destructive-light">{errors.role.message}</span>
           )}
         </div>
 

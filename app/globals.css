@@ -203,7 +203,7 @@
   }
 
   .app-sidebar {
-    @apply flex flex-col gap-y-8 h-full rounded-4xl px-6 pt-8 pb-6;
+    @apply hidden lg:flex lg:flex-col lg:gap-y-8 h-full rounded-4xl px-6 pt-8 pb-6;
   }
 
   .dapp-container {

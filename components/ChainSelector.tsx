@@ -6,20 +6,40 @@ import {
   SelectTrigger, 
   SelectValue 
 } from './ui/Select'
+import { useChain } from '@/providers/ChainProvider'
+import { IChain } from '@/types/chains';
 
 const ChainSelector = () => {
+  const { 
+    chains, 
+    activeChain,
+    handleActiveChainOption
+  } = useChain();
+
+  const changeActiveChain = (value: string) => {
+    const selectedChain = chains.filter(c => c.name.toLowerCase() === value.toLowerCase());
+    handleActiveChainOption(selectedChain[0]);
+  }
 
   return (
-    <Select>
-      <SelectTrigger className="w-max h-4">
-        <div className="size-4 rounded-full bg-red-300"></div>
+    <Select
+      value={activeChain.name}
+      onValueChange={changeActiveChain}
+    >
+      <SelectTrigger className="w-36 text-base !h-10">
         <SelectValue placeholder="Select chain" />
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="nigeria">Nigeria 🇳🇬</SelectItem>
-        <SelectItem value="uk">UK 🇬🇧</SelectItem>
-        <SelectItem value="japan">Japan 🇯🇵</SelectItem>
+        {chains.map(({ name }) => (
+          <SelectItem 
+            key={name}
+            value={name}
+            className="capitalize"
+          >
+            {name}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   )

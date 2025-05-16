@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { buttonVariants } from './ui/Button';
 import { MusicItem, ExpandedMusicItem } from './MusicItem';
 import DragFreeEmblaCarousel from './carousels/DragFreeEmblaCarousel';
@@ -22,15 +22,10 @@ type MusicItemCollectionProps = {
 const MusicItemCollection = ({
     title
 }: MusicItemCollectionProps) => {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, [])
 
     return (
         <section className="py-7 space-y-1">
-            <header className="flex items-center justify-between sticky top-0 z-10 backdrop-blur-lg bg-background/20">
+            <header className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold text-white/90">{title}</h1>
                 <Link
                     href="/"
@@ -42,7 +37,7 @@ const MusicItemCollection = ({
             
             {/* Audio List */}
             <DragFreeEmblaCarousel>
-                {isMounted && tracks.map((track) => (
+                {tracks.map((track) => (
                     <MusicItem
                         key={track.title+track.artist}
                         track={track}

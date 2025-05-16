@@ -11,7 +11,7 @@ import { Button } from './ui/Button';
 import MuteMediaButton from './MuteMediaButton';
 
 const MusicPlayerInfo = () => {
-  const { currentTrack } = usePlayer();
+  const { currentTrack, point } = usePlayer();
 
   return (
     <div className="flex items-center gap-x-3.5 w-[24%]">
@@ -29,7 +29,10 @@ const MusicPlayerInfo = () => {
         <h5 className="truncate text-[18.5px] text-primary-shade-800 font-semibold">{currentTrack?.title}</h5>
         
         {/* Artist */}
-        <p className="text-sm opacity-80">{currentTrack?.artist}</p>
+        <p className="text-sm opacity-80">
+          {currentTrack?.artist} 
+          {point}
+        </p>
       </div>
     </div>
   )
@@ -90,7 +93,7 @@ const MusicPlayerControls = () => {
         </Button>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 select-none">
         <span className="text-sm">{formatTime(currentTime)}</span>
         <Slider 
           min={0}

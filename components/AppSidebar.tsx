@@ -17,19 +17,42 @@ import Image from 'next/image';
 import { links } from '@/lib/constants/sidebar-links';
 import { cn, isActiveLink } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/Tooltip';
+
+interface IAppSidebarLink extends ILink {
+  isActive?: boolean;
+}
 
 const AppSidebarLink = ({
   title,
   route,
-  Icon
-}: ILink) => {
+  Icon,
+  isActive
+}: IAppSidebarLink) => {
   const pathname = usePathname();
+  let content = null;
 
-  return (
-    <li className={cn(
-      "relative px-6",
-      isActiveLink(pathname, route) ? "before:block before:content-[''] before:absolute before:left-0 before:w-1.5 before:h-full before:bg-primary before:rounded-r-sm" : ""
-    )}>
+  if (isActive) {
+    content = (
+      <Tooltip>
+          <TooltipTrigger>
+            <p
+              className={cn(
+                "flex items-center gap-x-2 text-white opacity-50 font-medium"
+              )}
+              aria-disabled={true}
+            >
+              <Icon className="size-6" />
+              <span className="text-[17px]">{title}</span>
+            </p>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            <span>Coming Soon</span>
+          </TooltipContent>
+      </Tooltip>
+    )
+  }  else {
+    content = (
       <Link
         href={route}
         className={cn(
@@ -40,6 +63,15 @@ const AppSidebarLink = ({
         <Icon className="size-6" />
         <span className="text-[17px]">{title}</span>
       </Link>
+    )
+  }
+
+  return (
+    <li className={cn(
+      "relative px-6",
+      isActiveLink(pathname, route) ? "before:block before:content-[''] before:absolute before:left-0 before:w-1.5 before:h-full before:bg-primary before:rounded-r-sm" : ""
+    )}>
+      {content}
     </li>
   )
 }
@@ -55,14 +87,16 @@ const AppSidebarContent = () => {
           >
             <h5 className="font-semibold px-6 opacity-70 capitalize">{name}</h5>
 
-            <ul className="space-y-6">
-              {slinks.map(link => (
-                <AppSidebarLink 
-                  key={link.title}
-                  {...link}
-                />
-              ))}
-            </ul>
+            <TooltipProvider>
+              <ul className="space-y-6">
+                {slinks.map(link => (
+                  <AppSidebarLink 
+                    key={link.title}
+                    {...link}
+                  />
+                ))}
+              </ul>
+            </TooltipProvider>
           </div>
         ))}
 
@@ -70,12 +104,21 @@ const AppSidebarContent = () => {
         <div className="space-y-5">
           <header className="flex items-center justify-between px-6">
             <h5 className="font-semibold opacity-70 capitalize">Playlists</h5>
-            <Link
-              href="/playlists"
-              className={cn(buttonVariants({ variant: "ghost", size: "excerpt" }))}
-            >
-              View all
-            </Link>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <p
+                    className={cn(buttonVariants({ variant: "ghost", size: "excerpt" }))}
+                    aria-disabled={true}
+                  >
+                    View all
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span>Coming soon</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </header>
           
           <ul>
@@ -83,6 +126,7 @@ const AppSidebarContent = () => {
               title="New playlist"
               Icon={Icons.plus}
               route="/playlist/new"
+              isActive={true}
             />
           </ul>
         </div>
@@ -109,38 +153,6 @@ const AppSidebarHeader = () => {
 }
 
 const AppSidebar = () => {
-  const isMobile = useMobile(900);
-
-  if (isMobile) {
-    return (
-      <Sheet>
-        <SheetTrigger className="absolute">
-          <Button>
-            <Icons.menu />
-          </Button>
-        </SheetTrigger>
-
-        <SheetContent 
-          side="left"
-          className="app-container app-sidebar"
-        >
-          {/* App Sidebar Header */}
-          <div>
-            <AppSidebarHeader />
-            <SheetTrigger>
-              <Button>
-                <Icons.close />
-              </Button>
-            </SheetTrigger>
-          </div>
-
-          {/* App Sidebar Content */}
-          <AppSidebarContent />
-        </SheetContent>
-      </Sheet>
-    )
-  }
-
   return (
     <aside className="app-container app-sidebar row-span-full">
       {/* App Sidebar Header */}
