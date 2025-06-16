@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/providers/Providers";
+import { Connection } from "@solana/web3.js";
 
 const urbanist = localFont({
   src: "./fonts/urbanist/Urbanist-VariableFont_wght.ttf"
@@ -34,3 +35,4 @@ export default function RootLayout({
     </html>
   );
 }
+

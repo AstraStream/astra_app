@@ -6,7 +6,7 @@ import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { userSettingsSchema } from '@/lib/schemas';
 import { getFieldError, verifyEmail } from '@/lib/utils';
 import useSearchQuery from './useSearchQuery';
-import { useCompleteUserRegistration } from '@/lib/api/auth';
+import { useCompleteUserRegistration } from '@/lib/apis/auth';
 
 export const genderOptions = ["Male", "Female", "Something else", "Prefer not to say"] as const;
 // export const roles = ["listener", "artist"] as const;

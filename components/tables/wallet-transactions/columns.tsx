@@ -10,7 +10,7 @@ export type Transactions = {
   name: string;
   type: "deposit" | "withdrawal" | "swap" | "bridge";
   amount: number;
-  status: "pending" | "pending" | "success" | "failed";
+  status: "pending" | "success" | "failed";
   from: string;
   to: string;
   transaction_hash: string;
@@ -32,6 +32,11 @@ export const columns: ColumnDef<Transactions>[] = [
   {
     accessorKey: "type",
     header: "Type",
+    cell: ({ row }) => {
+      return (
+        <span className="capitalize text-white">{row.getValue("type")}</span>
+      )
+    }
   },
   {
     accessorKey: "amount",
@@ -47,7 +52,7 @@ export const columns: ColumnDef<Transactions>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Status"
   },
   {
     accessorKey: "transaction_hash",
@@ -59,7 +64,7 @@ export const columns: ColumnDef<Transactions>[] = [
           target="_blank"
           className={cn(
             buttonVariants({ variant: "link", size: "link" }),
-            "!text-white"
+            "!text-white !decoration-dashed text-sm"
           )}
         >
           {row.getValue("transaction_hash")}

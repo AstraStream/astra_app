@@ -1,14 +1,12 @@
 import { AuthValues } from "@/hooks/useRegisterForm";
 import {
-    useMutation,
-    useQuery,
-    useQueryClient
+    useMutation
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
 
 import { VerifyCredential } from "@/hooks/useVerifyForm";
-import axios from "../axios";
+import axios, { axiosAuth } from "../axios";
 import { CompleteUserRegistrationValues } from "@/hooks/useUserInfoSettingsForm";
 
 // Register Mutation
@@ -88,7 +86,7 @@ export function useCompleteUserRegistration() {
             return response.data;
         },
         onSuccess: (data) => {
-            localStorage.setItem("tk", JSON.stringify(data));
+            localStorage.setItem("astra-tk", JSON.stringify(data));
 
             // Redirect to app
             router.push("/");
@@ -117,6 +115,30 @@ export function useLogin() {
         }, 
         onError: (error) => {
             console.error("Registration error", error);
+        }
+    })
+}
+
+// Logout authenticated user
+export function useLogout() {
+    const router = useRouter();
+
+    return useMutation({
+        mutationFn: async () => {
+            const response = await axiosAuth.post("/auth/logout");
+            if (response.status !== 200) throw new Error("Logout failed");
+
+            return response.data;
+        },
+        onSuccess: () => {
+            // Clear storage
+            localStorage.removeItem("astra-tk");
+
+            // Redirect to app
+            router.push("/");
+        }, 
+        onError: (error) => {
+            toast.error("Error logging user out");
         }
     })
 }

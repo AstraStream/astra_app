@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/lib/api/spotifyToken";
+import { getAccessToken } from "@/lib/apis/spotifyToken";
 
 export async function GET() {
     try {

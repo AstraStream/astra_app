@@ -41,15 +41,15 @@ const TransactionsBoard = async () => {
 
   return (
     <div className="wallet-board-container !h-max p-7 space-y-3.5">
-        <header>
-            <h1 className="wallet-board-title">Transactions</h1>
-        </header>
+      <header>
+        <h1 className="wallet-board-title">Transactions</h1>
+      </header>
 
-        {/* Transactions */}
-        <TransactionTable 
-          columns={columns}
-          data={data}
-        />
+      {/* Transactions */}
+      <TransactionTable 
+        columns={columns}
+        data={data}
+      />
     </div>
   )
 }

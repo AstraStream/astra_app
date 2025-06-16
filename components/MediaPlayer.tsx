@@ -11,7 +11,7 @@ import { Button } from './ui/Button';
 import MuteMediaButton from './MuteMediaButton';
 
 const MusicPlayerInfo = () => {
-  const { currentTrack, point } = usePlayer();
+  const { currentTrack } = usePlayer();
 
   return (
     <div className="flex items-center gap-x-3.5 w-[24%]">
@@ -30,8 +30,7 @@ const MusicPlayerInfo = () => {
         
         {/* Artist */}
         <p className="text-sm opacity-80">
-          {currentTrack?.artist} 
-          {point}
+          {currentTrack?.artist}
         </p>
       </div>
     </div>

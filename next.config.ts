@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  webpack(config) {
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+
     const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.('.svg'));
   
     fileLoaderRule.exclude = /\.svg$/i;

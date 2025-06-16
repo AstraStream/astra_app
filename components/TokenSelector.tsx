@@ -1,19 +1,19 @@
 "use client";
 
-import {
-    useState,
-} from "react";
+// import {
+//     useState,
+// } from "react";
 import { fetchTokens } from "@/lib/services/tokens.service";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "react-loading-skeleton";
 
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/Dialog";
+// import {
+//     Dialog,
+//     DialogClose,
+//     DialogContent,
+//     DialogTitle,
+//     DialogTrigger,
+// } from "@/components/ui/Dialog";
 
 
 interface ITokenSelector {
@@ -36,13 +36,11 @@ const TokenSelector = ({
         ? tokens.filter((token) => token.address !== excludeToken)
         : tokens;
 
-    console.log(filteredTokens);
-
     return (
         <div>
             {true && <div className="grid gap-y-2">
                 {Array.from({ length: 6 }).map((_, idx) => (
-                    <Skeleton width={100} height={20} />
+                    <Skeleton key={idx} width={100} height={20} />
                 ))}    
             </div>}
             {error && <p>Error: {error.message}</p>}

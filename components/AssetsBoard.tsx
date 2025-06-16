@@ -13,7 +13,7 @@ const AssetsBoard = () => {
         <div className="wallet-board-container p-7 grid grid-rows-[max-content_1fr] gap-y-5 divide-y-1 divide-grey-300/80">
             <header className="flex items-center gap-x-2 pb-5">
                 <h1 className="wallet-board-title">Assets</h1>
-                <span className="rounded-full p-3 border border-input size-9 flex-center text-white font-semibold">2</span>
+                <span className="rounded-full p-2 border border-input size-8 flex-center text-white font-semibold">2</span>
             </header>
 
             {/* Assets */}

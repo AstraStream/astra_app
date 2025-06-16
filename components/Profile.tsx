@@ -4,17 +4,14 @@ import { buttonVariants } from './ui/Button'
 
 import Icons from './Icons';
 import image from "@/assets/notification.png";
-import { Button } from './ui/Button';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu"
-import NotificationDropdown from './dropdowns/NotificationDropdown';
 import { cn } from '@/lib/utils';
 import ProfileDropdown from './dropdowns/ProfileDropdown';
 
 const Profile = () => {
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={cn(buttonVariants({ variant: "grey", size: "profile" }))}
@@ -23,14 +20,14 @@ const Profile = () => {
           <Image 
             src={image}
             alt="image"
-            width={35}
-            height={35}
+            width={30}
+            height={30}
             className="rounded-full"
           />
-          <p className="font-medium text-white w-2/3 truncate text-[15px]">Cypherslopps</p>
+          <p className="font-medium text-white w-2/3 truncate text-sm">Cypherslopps</p>
         </div>
 
-        <Icons.arrowDown className="text-white size-7" />
+        <Icons.arrowDown className="text-white size-6" />
         <span className="sr-only">Profile</span>
       </DropdownMenuTrigger>
 

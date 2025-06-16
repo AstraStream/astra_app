@@ -12,6 +12,7 @@ import {
     Howl,
     Howler
 } from "howler";
+import { useReward } from "./RewardProvider";
 
 interface IPlayerContext {
     currentTrack: ITrack | null;
@@ -21,7 +22,6 @@ interface IPlayerContext {
     currentTime: number;
     duration: number;
     isMuted: boolean;
-    point:number;
     playTrack: (
         track: ITrack,
         playlist: ITrack[]
@@ -37,8 +37,8 @@ interface IPlayerProvider {
     children: ReactNode
 }
 
-const POINTS_PER_INTERVAL = 10;
-const INTERVAL_SECONDS = 5;
+const POINTS_PER_INTERVAL: number = 10;
+const INTERVAL_SECONDS = 120;
 
 const PlayerContext = createContext<IPlayerContext | undefined>(undefined);
 
@@ -53,7 +53,7 @@ export const PlayerProvider = ({
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [secondsPlayed, setSecondsPlayed] = useState(0);
-    const [point, setPoint] = useState(0);
+    const { setPoints, points } = useReward();
 
     const howlRef = useRef<Howl | null>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -258,8 +258,8 @@ export const PlayerProvider = ({
     // Accumulate points when play time reaches 120, award and reset counter
     useEffect(() => {
         if (secondsPlayed > 0 && secondsPlayed % INTERVAL_SECONDS === 0) {
-            localStorage.setItem("astra-pt", JSON.stringify(point + POINTS_PER_INTERVAL));
-            setPoint(s => s + POINTS_PER_INTERVAL);
+            localStorage.setItem("astra-pt", JSON.stringify(points + POINTS_PER_INTERVAL));
+            setPoints((s: any) => s + POINTS_PER_INTERVAL);
         }
     }, [secondsPlayed])
 
@@ -280,7 +280,6 @@ export const PlayerProvider = ({
             isPlaying,
             isMuted,
             duration,
-            point,
             togglePlay,
             playTrack,
             playNext,

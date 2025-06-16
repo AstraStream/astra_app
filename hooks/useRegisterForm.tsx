@@ -5,7 +5,7 @@ import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { authFormSchema } from '@/lib/schemas';
 import { getFieldError } from '@/lib/utils';
 import { z } from 'zod';
-import { useRegister } from '@/lib/api/auth';
+import { useRegister } from '@/lib/apis/auth';
 
 export type AuthValues = z.infer<typeof authFormSchema>;
 

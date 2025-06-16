@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/lib/api/spotifyToken";
+import { getAccessToken } from "@/lib/apis/spotifyToken";
 import redis from "@/lib/redis";
 
 export async function GET(req: Request) {

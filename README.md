@@ -1,11 +1,12 @@
 # AstraApp
 
 
-### Tools
+### Tech Stacks
 - Howler.js
 - Motion
 - Tailwindcss
 - Nextjs
+- Tanstack Query
 
 ### Challenges
 - I had a serious issue integrating Howler for HTML Audio. It turns out the issue came for the initializing the library properly in my PlayerProvider page. I had to initialize Howler in a seperate variable before assigning it to my Howler useRef variable. Here is my code

@@ -5,7 +5,7 @@ import { verifyOTPSchema } from '@/lib/schemas';
 import { getFieldError, verifyEmail } from '@/lib/utils';
 import { z } from 'zod';
 import useSearchQuery from './useSearchQuery';
-import { useResendVerifyCode, useVerifyUserEmail } from '@/lib/api/auth';
+import { useResendVerifyCode, useVerifyUserEmail } from '@/lib/apis/auth';
 import useCountdown from './useCountdown';
 import { useEffect } from 'react';
 

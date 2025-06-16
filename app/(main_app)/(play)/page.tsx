@@ -1,12 +1,12 @@
 import MusicItemCollection from "@/components/MusicItemCollection";
-import RecentAlbumBanner from "@/components/banners/RecentAlbumBanner";
+// import RecentAlbumBanner from "@/components/banners/RecentAlbumBanner";
 
 function Home() {
   
   return (
     <>
-      <RecentAlbumBanner />
-      
+      {/* <RecentAlbumBanner /> */}
+    
       <MusicItemCollection title="Recent Albums" />
       <MusicItemCollection 
         title="Picked for you" 

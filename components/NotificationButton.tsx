@@ -9,7 +9,6 @@ import NotificationDropdown from './dropdowns/NotificationDropdown';
 import { cn } from '@/lib/utils';
 
 const NotificationButton = () => {
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="relative">

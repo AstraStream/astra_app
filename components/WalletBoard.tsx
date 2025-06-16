@@ -41,11 +41,11 @@ const WalletBoard = () => {
     }
 
     return (
-        <div className="wallet-board-container p-10 flex flex-col justify-between gap-y-4">
+        <div className="wallet-board-container p-9 flex flex-col justify-between gap-y-4">
             <div className="flex flex-col gap-y-3 lg:gap-y-0 lg:flex-row lg:items-center lg:justify-between">
                 <div className="space-y-2">
                     <header className="flex items-center gap-x-1">
-                        <h6 className="select-none font-medium text-white/50 text-lg">Total Balance</h6>
+                        <h6 className="select-none font-medium text-white/50 text-base">Total Balance</h6>
                         <span 
                             onClick={toggleBalanceVisibility}
                             className="hover:cursor-pointer text-white/50"
@@ -57,7 +57,7 @@ const WalletBoard = () => {
                             )}
                         </span>
                     </header>
-                    <div className="-ml-3.5 flex items-center gap-x-3">
+                    <div className="-ml-3.5 flex items-center gap-x-3 select-none">
                         <figure>
                             <Image 
                                 src={activeChain.imageSource}

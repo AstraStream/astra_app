@@ -15,11 +15,11 @@ import image1 from "@/assets/img-3.jpg";
 
 const NotificationDropdownCollection = () => {
   return (
-    <div className="h-80 text-white overflow-y-scroll no-scrollbar space-y-2">
+    <div className="h-80 text-white overflow-y-scroll no-scrollbar space-y-2.5 pb-3">
       {Array.from({ length: 10 }).map((_, idx) => (
         <div 
           key={idx} 
-          className="w-full p-1.5 rounded-md flex gap-x-2 transition-colors duration-300 hover:cursor-pointer hover:bg-grey-100"
+          className="w-full p-1 rounded-md flex gap-x-2 transition-colors duration-300 hover:cursor-pointer hover:bg-grey-100"
         >
           <Image 
             src={image1}
@@ -30,13 +30,13 @@ const NotificationDropdownCollection = () => {
           {/* Content */}
           <div className="">
             <h5 className="font-bold">That Ain't Enough</h5>
-            <p className="text-sm text-foreground">Kyle Beats Collective</p>
-            <div className="flex items-center text-sm gap-x-1.5">
-              <span>Single</span>
+            <p className="text-sm text-white/70">Kyle Beats Collective</p>
+            <div className="flex items-center text-sm mt-[1px] gap-x-1.5">
+              <span className="font-semibold">Single</span>
               <span>.</span>
-              <span>2 weeks ago</span>
+              <span className="text-muted">2 weeks ago</span>
               <span>.</span>
-              <span>29 min 12 sec</span>
+              <span className="text-muted">29 min 12 sec</span>
             </div>
           </div>
         </div>
@@ -46,12 +46,12 @@ const NotificationDropdownCollection = () => {
 }
 
 const NotificationDropdown = () => {
-  const [doesNotificationExist] = useState(false);
+  const [doesNotificationExist] = useState(true);
 
   return (
     <DropdownMenuContent
         align="end"
-        className="w-[22rem] bg-background border-input px-3.5 pt-3.5 pb-1.5 mt-2.5"
+        className="w-[22rem] bg-background border-input px-3 pt-3.5 pb-1.5 mt-2.5"
       >
         <header className="flex items-center justify-between text-white">
           <h4 className="text-lg font-bold">Notifications</h4>

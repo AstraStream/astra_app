@@ -8,8 +8,9 @@ import {
     DialogFooter,
 } from "../ui/Dialog";
 import notificationImage from "@/assets/notification.png";
-import { Button } from '../ui/Button';
+import { Button, buttonVariants } from '../ui/Button';
 import Icons from '../Icons';
+import { cn } from '@/lib/utils';
 
 type AuthMailNotifierModalProps = {
     isOpen: boolean;
@@ -28,14 +29,12 @@ const AuthMailNotifierModal = ({
       <DialogContent className="w-[452px] rounded-[60px] pt-10 pb-9 px-9 flex flex-col items-center gap-y-3 [&>button:last-child]:hidden">
         {/* Dialog Close Button */}
         <DialogClose asChild>
-            <Button 
-                type="button"
-                variant="muted"
-                size="close"
-                className="absolute top-7 right-4"
-            >
+            <span className={cn(
+                "absolute top-7 right-4",
+                buttonVariants({ variant: "muted", size: "close" })
+            )}>
                 <Icons.close className="size-6 text-foreground" />
-            </Button>
+            </span>
         </DialogClose>
 
         <figure className="w-[232.77px] h-[190px] bg-radial from-background/35 to-background relative">

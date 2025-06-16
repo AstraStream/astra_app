@@ -59,7 +59,7 @@ const useAstraProgram = ({ connection, wallet }: IAnchorProp) => {
         return pda;
     }
 
-    const claimReward = (
+    const claimReward = async (
         username: string,
         role: string,
         amount: number,
@@ -71,7 +71,7 @@ const useAstraProgram = ({ connection, wallet }: IAnchorProp) => {
         const claimerAccount = getClaimer(wallet, poolAccount);
         const claimerAta = getAssociatedTokenAddressSync(mint, wallet);
 
-        program.methods.claimReward(username, role, amountInLamports)
+        const tx = await program.methods.claimReward(username, role, amountInLamports)
             .accounts({
                 signer: wallet,
                 mint,
@@ -83,6 +83,7 @@ const useAstraProgram = ({ connection, wallet }: IAnchorProp) => {
                 systemProgram: SYSTEM_PROGRAM_ID
             })
             .rpc();
+            return tx;
     }
 
     return {

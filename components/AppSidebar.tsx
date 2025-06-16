@@ -42,8 +42,8 @@ const AppSidebarLink = ({
               )}
               aria-disabled={true}
             >
-              <Icon className="size-6" />
-              <span className="text-[17px]">{title}</span>
+              <Icon className="size-5" />
+              <span className="text-base">{title}</span>
             </p>
           </TooltipTrigger>
           <TooltipContent side="right">
@@ -88,7 +88,7 @@ const AppSidebarContent = () => {
             <h5 className="font-semibold px-6 opacity-70 capitalize">{name}</h5>
 
             <TooltipProvider>
-              <ul className="space-y-6">
+              <ul className="space-y-5">
                 {slinks.map(link => (
                   <AppSidebarLink 
                     key={link.title}

@@ -17,12 +17,14 @@ export const MusicItem = ({
     return (
         <blockquote className="shrink-0 card-container group relative">
             <figure className="h-52 relative rounded-xl overflow-clip select-none group">
-                <Image 
-                    src={track.image}
-                    alt={`${track.artist}-${track.title}`}
-                    fill
-                    className="object-cover object-center"
-                />
+                {track.image && (
+                    <Image 
+                        src={track.image}
+                        alt={`${track.artist}-${track.title}`}
+                        fill
+                        className="object-cover object-center"
+                    />
+                )}
 
                 <PlayButton 
                     variant="default"
